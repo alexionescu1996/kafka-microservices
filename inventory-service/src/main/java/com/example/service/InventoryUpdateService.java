@@ -1,6 +1,6 @@
-package com.example.inventoryservice.service;
+package com.example.service;
 
-import com.example.common.model.Order;
+import com.example.model.Order;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
