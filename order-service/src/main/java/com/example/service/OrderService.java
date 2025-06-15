@@ -42,8 +42,8 @@ public class OrderService {
             if (ex != null) {
                 log.error("order_error :: {ex}", ex);
             } else {
-                log.info("offset :: {}, topic :: {}, partition :: {}",
-                        recordMetadata.offset(), recordMetadata.topic(), recordMetadata.partition());
+                log.info("offset :: {}, topic :: {}, partition :: {}, order :: {}",
+                        recordMetadata.offset(), recordMetadata.topic(), recordMetadata.partition(), order.getProductName());
             }
         });
 

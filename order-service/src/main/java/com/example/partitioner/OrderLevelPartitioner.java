@@ -4,6 +4,8 @@ import com.example.model.Order;
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.common.Cluster;
 import org.apache.kafka.common.PartitionInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,8 @@ import java.util.Random;
 
 public class OrderLevelPartitioner
         implements Partitioner {
+
+    private static final Logger log = LoggerFactory.getLogger(OrderLevelPartitioner.class);
 
     @Override
     public int partition(String topic,
@@ -29,6 +33,8 @@ public class OrderLevelPartitioner
 
     private int findRandomPartition(Cluster cluster, String topic) {
         List<PartitionInfo> partitionInfoList = cluster.availablePartitionsForTopic(topic);
+        log.info("cluster availablePartitionsForTopic :: {}, topic :: {}",
+                partitionInfoList.size(), topic);
 
         Random random = new Random();
         return random.nextInt(1, partitionInfoList.size());
