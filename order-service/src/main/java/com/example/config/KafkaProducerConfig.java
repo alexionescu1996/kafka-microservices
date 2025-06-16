@@ -1,6 +1,7 @@
 package com.example.config;
 
 import com.example.model.Order;
+import com.example.partitioner.OrderLevelPartitioner;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -25,6 +26,9 @@ public class KafkaProducerConfig {
     public ProducerFactory<Long, Order> producerFactory() {
 
         Map<String, Object> configProps = new HashMap<>();
+
+        configProps.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,
+                OrderLevelPartitioner.class.getName());
 
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
                 bootstrapServers);

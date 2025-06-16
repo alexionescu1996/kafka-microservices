@@ -1,6 +1,6 @@
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 192.168.1.187:9092
     consumer:
       group-id: inventory-service-group
       auto-offset-reset: earliest
