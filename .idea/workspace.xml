@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="872e571c-d9a8-4c8f-9080-00d07d239ef1" name="Changes" comment="completeablefuture tests">
+      <change afterPath="$PROJECT_DIR$/client-app/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client_app/ClientAppApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client_app/FeignConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client_app/HttpClientI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client_app/JSONPlaceHolderClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client_app/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client_app/Post.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/src/test/java/com/example/client_app/ClientAppApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/com/example/service/InventoryUpdateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/com/example/service/InventoryUpdateService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;alexionescu1996&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/alexionescu1996/kafka-microservices.git&quot;,
+    &quot;accountId&quot;: &quot;b7624395-57e0-4e6b-8ab1-ace1d065016b&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2yRm3GxDwncIc1oRfBUhmHUEVcG" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ClientAppApplication.executor": "Run",
+    "Application.InventoryServiceApplication.executor": "Run",
+    "Application.OrderServiceApplication.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.CompleteableFutureTest.executor": "Run",
+    "JUnit.CompleteableFutureTest.test3.executor": "Run",
+    "JUnit.CompleteableFutureTest.test6.executor": "Run",
+    "JUnit.CompleteableFutureTest.test7.executor": "Run",
+    "JUnit.CompleteableFutureTest.test8.executor": "Run",
+    "JUnit.CompleteableFutureTest.test9.executor": "Run",
+    "Maven.client-app [clean,install].executor": "Run",
+    "Maven.inventory-service [clean,install].executor": "Run",
+    "Maven.order-service [clean,install].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/aionescu/IdeaProjects/kafka-microservices",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.43448275",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/inventory-service/src/main/resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ClientAppApplication">
+    <configuration name="ClientAppApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.client_app.ClientAppApplication" />
+      <module name="client-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.client_app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompleteableFutureTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="order-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.order.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.order" />
+      <option name="MAIN_CLASS_NAME" value="com.example.order.CompleteableFutureTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompleteableFutureTest.test3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="order-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.order.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.order" />
+      <option name="MAIN_CLASS_NAME" value="com.example.order.CompleteableFutureTest" />
+      <option name="METHOD_NAME" value="test3" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompleteableFutureTest.test8" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="order-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.order.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.order" />
+      <option name="MAIN_CLASS_NAME" value="com.example.order.CompleteableFutureTest" />
+      <option name="METHOD_NAME" value="test8" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompleteableFutureTest.test9" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="order-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.order.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.order" />
+      <option name="MAIN_CLASS_NAME" value="com.example.order.CompleteableFutureTest" />
+      <option name="METHOD_NAME" value="test9" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ClientAppApplication" />
+        <item itemvalue="JUnit.CompleteableFutureTest.test9" />
+        <item itemvalue="JUnit.CompleteableFutureTest.test3" />
+        <item itemvalue="JUnit.CompleteableFutureTest" />
+        <item itemvalue="JUnit.CompleteableFutureTest.test8" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="872e571c-d9a8-4c8f-9080-00d07d239ef1" name="Changes" comment="" />
+      <created>1749805558283</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1749805558283</updated>
+    </task>
+    <task id="LOCAL-00001" summary="added partitioner">
+      <option name="closed" value="true" />
+      <created>1750056557948</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1750056557948</updated>
+    </task>
+    <task id="LOCAL-00002" summary="completeablefuture tests">
+      <option name="closed" value="true" />
+      <created>1750203035490</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1750203035490</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added partitioner" />
+    <MESSAGE value="completeablefuture tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="completeablefuture tests" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/order-service/src/main/java/com/example/partitioner/OrderLevelPartitioner.java</url>
+          <line>23</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

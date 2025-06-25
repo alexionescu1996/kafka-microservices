@@ -1,0 +1,432 @@
+Index: order-service/src/test/java/com/example/order/CompleteableFutureTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.order;\n\nimport org.checkerframework.checker.units.qual.C;\nimport org.junit.jupiter.api.Test;\nimport org.junit.jupiter.api.Timeout;\nimport org.junit.jupiter.api.extension.ExtendWith;\n\nimport java.time.Duration;\nimport java.util.concurrent.*;\n\npublic class CompleteableFutureTest {\n\n    @Test\n    void test()\n            throws InterruptedException, ExecutionException {\n\n        try (var svc = Executors.newFixedThreadPool(2)) {\n            svc.submit(() -> System.out.println(\"hello W\"));\n            Runnable print = () -> System.out.println(\"Hello_print\");\n            Runnable newLine = System.out::println;\n\n            svc.execute(newLine);\n            svc.execute(print);\n\n            Callable<String> print3 = () -> \"Hello3\";\n            Future<String> futureResult = svc.submit(print3);\n            String result = futureResult.get();\n            System.out.println(result);\n        }\n    }\n\n\n    @Test\n    void test2()\n            throws InterruptedException, ExecutionException {\n\n        try (var svc = Executors.newFixedThreadPool(2)) {\n\n            Callable<String> printDelay = () -> {\n                Thread.sleep(3_500);\n                System.out.println(\"printing from \" + Thread.currentThread().getName());\n                return \"Print Delayed\";\n            };\n\n            Future<String> future = svc.submit(printDelay);\n\n            String result = future.get();\n            System.out.println(\"printing from \" + Thread.currentThread().getName());\n\n            System.out.println(result);\n        }\n    }\n\n    @Test\n    void test3()\n            throws InterruptedException, ExecutionException, TimeoutException {\n\n        try (var svc = Executors.newFixedThreadPool(2)) {\n\n            Callable<String> callable = () -> {\n                Thread.sleep(3_500);\n                System.out.println(\"printing from \" + Thread.currentThread().getName());\n                return \"Print Delayed\";\n            };\n\n            Future<String> future = svc.submit(callable);\n\n            String result = future.get(1_50, TimeUnit.MILLISECONDS);\n            System.out.println(\"printing from \" + Thread.currentThread().getName());\n\n            System.out.println(result);\n        }\n    }\n\n    @Test\n    void test4()\n            throws InterruptedException, ExecutionException {\n\n        try (var svc = Executors.newFixedThreadPool(2)) {\n\n            CompletableFuture<String> completableFuture = new CompletableFuture<>();\n\n            svc.submit(() -> {\n                Thread.sleep(3_500);\n                completableFuture.complete(\"Print Delayed\");\n                return null;\n            });\n\n            String result = completableFuture.get();\n            System.out.println(result);\n        }\n    }\n\n    @Test\n    void test5()\n            throws InterruptedException, ExecutionException {\n\n        try (var svc = Executors.newFixedThreadPool(2)) {\n            CompletableFuture<String> completableFuture = new CompletableFuture<>();\n\n            Callable<Void> callable = () -> {\n                Thread.sleep(3_500);\n                completableFuture.complete(\"Print Delayed\");\n                System.out.println(\"printing from \" + Thread.currentThread().getName());\n                return null;\n            };\n\n            svc.submit(callable);\n            String result = completableFuture.get();\n            System.out.println(\"printing from \" + Thread.currentThread().getName());\n\n            System.out.println(result);\n        }\n    }\n\n    @Test\n    void test6()\n            throws InterruptedException, ExecutionException {\n//        https://www.baeldung.com/java-completablefuture\n\n    }\n\n}\n\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/order-service/src/test/java/com/example/order/CompleteableFutureTest.java b/order-service/src/test/java/com/example/order/CompleteableFutureTest.java
+--- a/order-service/src/test/java/com/example/order/CompleteableFutureTest.java	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
++++ b/order-service/src/test/java/com/example/order/CompleteableFutureTest.java	(date 1749832054625)
+@@ -1,126 +1,126 @@
+-package com.example.order;
+-
+-import org.checkerframework.checker.units.qual.C;
+-import org.junit.jupiter.api.Test;
+-import org.junit.jupiter.api.Timeout;
+-import org.junit.jupiter.api.extension.ExtendWith;
+-
+-import java.time.Duration;
+-import java.util.concurrent.*;
+-
+-public class CompleteableFutureTest {
+-
+-    @Test
+-    void test()
+-            throws InterruptedException, ExecutionException {
+-
+-        try (var svc = Executors.newFixedThreadPool(2)) {
+-            svc.submit(() -> System.out.println("hello W"));
+-            Runnable print = () -> System.out.println("Hello_print");
+-            Runnable newLine = System.out::println;
+-
+-            svc.execute(newLine);
+-            svc.execute(print);
+-
+-            Callable<String> print3 = () -> "Hello3";
+-            Future<String> futureResult = svc.submit(print3);
+-            String result = futureResult.get();
+-            System.out.println(result);
+-        }
+-    }
+-
+-
+-    @Test
+-    void test2()
+-            throws InterruptedException, ExecutionException {
+-
+-        try (var svc = Executors.newFixedThreadPool(2)) {
+-
+-            Callable<String> printDelay = () -> {
+-                Thread.sleep(3_500);
+-                System.out.println("printing from " + Thread.currentThread().getName());
+-                return "Print Delayed";
+-            };
+-
+-            Future<String> future = svc.submit(printDelay);
+-
+-            String result = future.get();
+-            System.out.println("printing from " + Thread.currentThread().getName());
+-
+-            System.out.println(result);
+-        }
+-    }
+-
+-    @Test
+-    void test3()
+-            throws InterruptedException, ExecutionException, TimeoutException {
+-
+-        try (var svc = Executors.newFixedThreadPool(2)) {
+-
+-            Callable<String> callable = () -> {
+-                Thread.sleep(3_500);
+-                System.out.println("printing from " + Thread.currentThread().getName());
+-                return "Print Delayed";
+-            };
+-
+-            Future<String> future = svc.submit(callable);
+-
+-            String result = future.get(1_50, TimeUnit.MILLISECONDS);
+-            System.out.println("printing from " + Thread.currentThread().getName());
+-
+-            System.out.println(result);
+-        }
+-    }
+-
+-    @Test
+-    void test4()
+-            throws InterruptedException, ExecutionException {
+-
+-        try (var svc = Executors.newFixedThreadPool(2)) {
+-
+-            CompletableFuture<String> completableFuture = new CompletableFuture<>();
+-
+-            svc.submit(() -> {
+-                Thread.sleep(3_500);
+-                completableFuture.complete("Print Delayed");
+-                return null;
+-            });
+-
+-            String result = completableFuture.get();
+-            System.out.println(result);
+-        }
+-    }
+-
+-    @Test
+-    void test5()
+-            throws InterruptedException, ExecutionException {
+-
+-        try (var svc = Executors.newFixedThreadPool(2)) {
+-            CompletableFuture<String> completableFuture = new CompletableFuture<>();
+-
+-            Callable<Void> callable = () -> {
+-                Thread.sleep(3_500);
+-                completableFuture.complete("Print Delayed");
+-                System.out.println("printing from " + Thread.currentThread().getName());
+-                return null;
+-            };
+-
+-            svc.submit(callable);
+-            String result = completableFuture.get();
+-            System.out.println("printing from " + Thread.currentThread().getName());
+-
+-            System.out.println(result);
+-        }
+-    }
+-
+-    @Test
+-    void test6()
+-            throws InterruptedException, ExecutionException {
+-//        https://www.baeldung.com/java-completablefuture
+-
+-    }
+-
+-}
+-
+-
+-
++//package com.example.order;
++//
++//import org.checkerframework.checker.units.qual.C;
++//import org.junit.jupiter.api.Test;
++//import org.junit.jupiter.api.Timeout;
++//import org.junit.jupiter.api.extension.ExtendWith;
++//
++//import java.time.Duration;
++//import java.util.concurrent.*;
++//
++//public class CompleteableFutureTest {
++//
++//    @Test
++//    void test()
++//            throws InterruptedException, ExecutionException {
++//
++//        try (var svc = Executors.newFixedThreadPool(2)) {
++//            svc.submit(() -> System.out.println("hello W"));
++//            Runnable print = () -> System.out.println("Hello_print");
++//            Runnable newLine = System.out::println;
++//
++//            svc.execute(newLine);
++//            svc.execute(print);
++//
++//            Callable<String> print3 = () -> "Hello3";
++//            Future<String> futureResult = svc.submit(print3);
++//            String result = futureResult.get();
++//            System.out.println(result);
++//        }
++//    }
++//
++//
++//    @Test
++//    void test2()
++//            throws InterruptedException, ExecutionException {
++//
++//        try (var svc = Executors.newFixedThreadPool(2)) {
++//
++//            Callable<String> printDelay = () -> {
++//                Thread.sleep(3_500);
++//                System.out.println("printing from " + Thread.currentThread().getName());
++//                return "Print Delayed";
++//            };
++//
++//            Future<String> future = svc.submit(printDelay);
++//
++//            String result = future.get();
++//            System.out.println("printing from " + Thread.currentThread().getName());
++//
++//            System.out.println(result);
++//        }
++//    }
++//
++//    @Test
++//    void test3()
++//            throws InterruptedException, ExecutionException, TimeoutException {
++//
++//        try (var svc = Executors.newFixedThreadPool(2)) {
++//
++//            Callable<String> callable = () -> {
++//                Thread.sleep(3_500);
++//                System.out.println("printing from " + Thread.currentThread().getName());
++//                return "Print Delayed";
++//            };
++//
++//            Future<String> future = svc.submit(callable);
++//
++//            String result = future.get(1_50, TimeUnit.MILLISECONDS);
++//            System.out.println("printing from " + Thread.currentThread().getName());
++//
++//            System.out.println(result);
++//        }
++//    }
++//
++//    @Test
++//    void test4()
++//            throws InterruptedException, ExecutionException {
++//
++//        try (var svc = Executors.newFixedThreadPool(2)) {
++//
++//            CompletableFuture<String> completableFuture = new CompletableFuture<>();
++//
++//            svc.submit(() -> {
++//                Thread.sleep(3_500);
++//                completableFuture.complete("Print Delayed");
++//                return null;
++//            });
++//
++//            String result = completableFuture.get();
++//            System.out.println(result);
++//        }
++//    }
++//
++//    @Test
++//    void test5()
++//            throws InterruptedException, ExecutionException {
++//
++//        try (var svc = Executors.newFixedThreadPool(2)) {
++//            CompletableFuture<String> completableFuture = new CompletableFuture<>();
++//
++//            Callable<Void> callable = () -> {
++//                Thread.sleep(3_500);
++//                completableFuture.complete("Print Delayed");
++//                System.out.println("printing from " + Thread.currentThread().getName());
++//                return null;
++//            };
++//
++//            svc.submit(callable);
++//            String result = completableFuture.get();
++//            System.out.println("printing from " + Thread.currentThread().getName());
++//
++//            System.out.println(result);
++//        }
++//    }
++//
++//    @Test
++//    void test6()
++//            throws InterruptedException, ExecutionException {
++////        https://www.baeldung.com/java-completablefuture
++//
++//    }
++//
++//}
++//
++//
++//
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+deleted file mode 100644
+--- a/.idea/compiler.xml	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
++++ /dev/null	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
+@@ -1,20 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="CompilerConfiguration">
+-    <annotationProcessing>
+-      <profile name="Maven default annotation processors profile" enabled="true">
+-        <sourceOutputDir name="target/generated-sources/annotations" />
+-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+-        <outputRelativeToContentRoot value="true" />
+-        <module name="order-service" />
+-        <module name="inventory-service" />
+-      </profile>
+-    </annotationProcessing>
+-  </component>
+-  <component name="JavacSettings">
+-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+-      <module name="inventory-service" options="-parameters" />
+-      <module name="order-service" options="-parameters" />
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/encodings.xml b/.idea/encodings.xml
+deleted file mode 100644
+--- a/.idea/encodings.xml	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
++++ /dev/null	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
+@@ -1,7 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="Encoding">
+-    <file url="file://$PROJECT_DIR$/inventory-service/src/main/java" charset="UTF-8" />
+-    <file url="file://$PROJECT_DIR$/order-service/src/main/java" charset="UTF-8" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/jarRepositories.xml b/.idea/jarRepositories.xml
+deleted file mode 100644
+--- a/.idea/jarRepositories.xml	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
++++ /dev/null	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
+@@ -1,20 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="RemoteRepositoriesConfiguration">
+-    <remote-repository>
+-      <option name="id" value="central" />
+-      <option name="name" value="Central Repository" />
+-      <option name="url" value="https://repo.maven.apache.org/maven2" />
+-    </remote-repository>
+-    <remote-repository>
+-      <option name="id" value="central" />
+-      <option name="name" value="Maven Central repository" />
+-      <option name="url" value="https://repo1.maven.org/maven2" />
+-    </remote-repository>
+-    <remote-repository>
+-      <option name="id" value="jboss.community" />
+-      <option name="name" value="JBoss Community repository" />
+-      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+-    </remote-repository>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+deleted file mode 100644
+--- a/.idea/misc.xml	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
++++ /dev/null	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
+@@ -1,15 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ExternalStorageConfigurationManager" enabled="true" />
+-  <component name="MavenProjectsManager">
+-    <option name="originalFiles">
+-      <list>
+-        <option value="$PROJECT_DIR$/order-service/pom.xml" />
+-        <option value="$PROJECT_DIR$/inventory-service/pom.xml" />
+-      </list>
+-    </option>
+-  </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="openjdk-23" project-jdk-type="JavaSDK">
+-    <output url="file://$PROJECT_DIR$/out" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+deleted file mode 100644
+--- a/.idea/vcs.xml	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
++++ /dev/null	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/kafka-microservices.iml
+===================================================================
+diff --git a/.idea/kafka-microservices.iml b/.idea/kafka-microservices.iml
+deleted file mode 100644
+--- a/.idea/kafka-microservices.iml	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
++++ /dev/null	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
+@@ -1,9 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module type="JAVA_MODULE" version="4">
+-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+-    <exclude-output />
+-    <content url="file://$MODULE_DIR$" />
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-  </component>
+-</module>
+\ No newline at end of file
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
++++ /dev/null	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
+@@ -1,3 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+deleted file mode 100644
+--- a/.idea/modules.xml	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
++++ /dev/null	(revision 077d3f99e9f77bb865c154d5208b0c6458455048)
+@@ -1,8 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectModuleManager">
+-    <modules>
+-      <module fileurl="file://$PROJECT_DIR$/.idea/kafka-microservices.iml" filepath="$PROJECT_DIR$/.idea/kafka-microservices.iml" />
+-    </modules>
+-  </component>
+-</project>
+\ No newline at end of file

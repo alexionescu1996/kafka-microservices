@@ -12,7 +12,10 @@ public class InventoryUpdateService {
     final static Logger log =
             LoggerFactory.getLogger(InventoryUpdateService.class);
 
-    @KafkaListener(topics = "orders-topic", groupId = "inventory-group")
+    @KafkaListener(
+            topics = "orders-topic",
+            groupId = "inventory-group"
+    )
     public void processOrder(Order order) {
         log.info("Received order for processing :: {}", order);
     }
