@@ -1,15 +1,6 @@
-package com.example.client_app;
+package com.example.client.app;
 
-import feign.Client;
-import feign.Contract;
-import feign.Feign;
-import feign.auth.BasicAuthRequestInterceptor;
-import feign.codec.Decoder;
-import feign.codec.Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.cloud.openfeign.FeignClientsConfiguration;
-import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

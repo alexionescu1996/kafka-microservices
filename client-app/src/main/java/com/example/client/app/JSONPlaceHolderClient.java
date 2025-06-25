@@ -1,4 +1,4 @@
-package com.example.client_app;
+package com.example.client.app;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
