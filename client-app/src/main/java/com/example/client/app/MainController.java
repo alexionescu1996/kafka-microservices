@@ -1,6 +1,7 @@
 package com.example.client.app;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,16 +12,22 @@ import java.util.List;
 @RequestMapping("/test")
 public class MainController {
 
-    JSONPlaceHolderClient client;
+    ProductClient productClient;
 
-    @Autowired
-    public MainController(JSONPlaceHolderClient client) {
-        this.client = client;
+    ProductResponse response;
+
+    public MainController(ProductClient productClient) {
+        this.productClient = productClient;
+        this.response = productClient.getProducts();
     }
 
-    @GetMapping
-    List<Post> getPosts() {
-        return client.getPosts();
+    @GetMapping(value = "/products")
+    ResponseEntity<?> getProducts() {
+        List<Product> list = response.getProducts();
+
+        System.out.println(list.size());
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
 

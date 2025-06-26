@@ -5,8 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="872e571c-d9a8-4c8f-9080-00d07d239ef1" name="Changes" comment="added products store manager">
-      <change beforePath="$PROJECT_DIR$/store-manager" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/StoreController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/ProductResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-app/src/main/resources/products.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_06_2025,_19_26_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_06_2025,_19_43_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_06_2025,_19_45_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_06_2025__19_26__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_06_2025__19_43__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_06_2025__19_45__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_06_2025,_15_09_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_06_2025__15_09__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/JSONPlaceHolderClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/ProductClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-app/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/client-app/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,41 +58,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ApiGatewayApplication.executor": "Run",
-    "Application.ClientAppApplication.executor": "Run",
-    "Application.InventoryServiceApplication.executor": "Run",
-    "Application.OrderServiceApplication.executor": "Run",
-    "Application.StoreManagerApplication.executor": "Run",
-    "Application.com.example.client.app.ClientAppApplication.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.CompleteableFutureTest.executor": "Run",
-    "JUnit.CompleteableFutureTest.test3.executor": "Run",
-    "JUnit.CompleteableFutureTest.test6.executor": "Run",
-    "JUnit.CompleteableFutureTest.test7.executor": "Run",
-    "JUnit.CompleteableFutureTest.test8.executor": "Run",
-    "JUnit.CompleteableFutureTest.test9.executor": "Run",
-    "Maven.api-gateway [clean,install].executor": "Run",
-    "Maven.client-app [clean,install].executor": "Run",
-    "Maven.inventory-service [clean,install].executor": "Run",
-    "Maven.order-service [clean,install].executor": "Run",
-    "Maven.store-manager [clean,install].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/aionescu/IdeaProjects/kafka-microservices/store-manager/src/main/resources",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.43448275",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ApiGatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ClientAppApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.InventoryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.OrderServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.StoreManagerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.example.client.app.ClientAppApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.CompleteableFutureTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test6.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test7.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test8.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test9.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.api-gateway [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.api-gateway [dependency:tree].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.client-app [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.client-app [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.client-app [dependency:tree].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.inventory-service [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.order-service [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.store-manager [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/aionescu/IdeaProjects/kafka-microservices/store-manager/src/main/resources&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.43448275&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/store-manager/src/main/resources" />
@@ -87,8 +103,16 @@
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/inventory-service/src/main/resources" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.ApiGatewayApplication">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn dependency:tree" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.com.example.client.app.ClientAppApplication">
     <configuration name="ApiGatewayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.api.gateway.ApiGatewayApplication" />
       <module name="api-gateway" />
@@ -156,10 +180,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ApiGatewayApplication" />
+        <item itemvalue="Application.com.example.client.app.ClientAppApplication" />
         <item itemvalue="Application.OrderServiceApplication" />
         <item itemvalue="Application.StoreManagerApplication" />
-        <item itemvalue="Application.com.example.client.app.ClientAppApplication" />
+        <item itemvalue="Application.ApiGatewayApplication" />
         <item itemvalue="Application.ClientAppApplication" />
       </list>
     </recent_temporary>
