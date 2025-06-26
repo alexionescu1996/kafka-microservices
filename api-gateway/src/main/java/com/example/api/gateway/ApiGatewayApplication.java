@@ -1,5 +1,6 @@
 package com.example.api.gateway;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -10,6 +11,9 @@ import java.util.UUID;
 
 @SpringBootApplication
 public class ApiGatewayApplication {
+
+    @Value("${services.orders.url}")
+    public String ORDERS_URL;
 
     public static void main(String[] args) {
         SpringApplication.run(ApiGatewayApplication.class, args);
@@ -23,7 +27,7 @@ public class ApiGatewayApplication {
                         .filters(f -> f.addRequestHeader(
                                 "X-API-GATEWAY",
                                 UUID.randomUUID().toString()))
-                        .uri("http://localhost:8090"))
+                        .uri(ORDERS_URL))
                 .build();
     }
 }
