@@ -12,6 +12,9 @@ import java.util.UUID;
 @SpringBootApplication
 public class ApiGatewayApplication {
 
+    @Value("${services.products.url}")
+    private String PRODUCTS_URL;
+
     @Value("${services.orders.url}")
     public String ORDERS_URL;
 
@@ -28,6 +31,12 @@ public class ApiGatewayApplication {
                                 "X-API-GATEWAY",
                                 UUID.randomUUID().toString()))
                         .uri(ORDERS_URL))
+                .route(p -> p
+                        .path("/products/**")
+                        .filters(f -> f.addRequestHeader(
+                                "X-API-GATEWAY",
+                                UUID.randomUUID().toString()))
+                        .uri(PRODUCTS_URL))
                 .build();
     }
 }
