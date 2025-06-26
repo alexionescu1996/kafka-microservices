@@ -3,12 +3,11 @@ package com.example.controller;
 import com.example.model.Order;
 import com.example.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/orders")
@@ -27,5 +26,12 @@ public class OrderController {
         orderService.process(order);
 
         return ResponseEntity.ok("Order processed");
+    }
+
+    @GetMapping("/hello")
+    public String test(@RequestHeader("X-API-GATEWAY") String apiGet) {
+
+        System.out.println("orders" + apiGet.toUpperCase());
+        return "All good from Orders!";
     }
 }
