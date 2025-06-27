@@ -16,9 +16,13 @@ public class MainController {
 
     ProductResponse response;
 
-    public MainController(ProductClient productClient) {
+    StoreClient storeClient;
+
+    public MainController(ProductClient productClient, StoreClient storeClient) {
         this.productClient = productClient;
         this.response = productClient.getProducts();
+        System.out.println("done init");
+        this.storeClient = storeClient;
     }
 
     @GetMapping(value = "/products")
@@ -27,6 +31,10 @@ public class MainController {
 
         System.out.println(list.size());
 
+        storeClient.postProduct(response);
+
+        List<Product> k = storeClient.list();
+        System.out.println(k);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 

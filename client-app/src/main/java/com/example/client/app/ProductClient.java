@@ -10,7 +10,8 @@ import java.util.List;
 
 @FeignClient(
         value = "dummyProducts",
-        url = "https://dummyjson.com"
+        url = "https://dummyjson.com",
+        contextId = "products-context"
 )
 public interface ProductClient {
 

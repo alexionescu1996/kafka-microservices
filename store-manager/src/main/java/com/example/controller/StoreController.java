@@ -1,6 +1,8 @@
 package com.example.controller;
 
 import com.example.dto.ProductDTO;
+import com.example.dto.ProductResponse;
+import com.example.model.Product;
 import com.example.service.ProductService;
 import com.example.utils.Utils;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -53,6 +56,13 @@ public class StoreController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .build();
+    }
+
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addProducts(@RequestBody ProductResponse productResponse) {
+        List<Product> products = productResponse.getProducts();
+
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
