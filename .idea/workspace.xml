@@ -5,24 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="872e571c-d9a8-4c8f-9080-00d07d239ef1" name="Changes" comment="added dummy products feign">
-      <change afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/FeignAuthInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/StoreClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client-app/src/main/resources/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/store-manager/src/main/java/com/example/dto/ProductResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_06_2025,_19_26_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_06_2025,_19_43_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_06_2025,_19_45_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_06_2025__19_26__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_06_2025__19_43__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_06_2025__19_45__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_06_2025,_15_09_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_06_2025__15_09__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/logback.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/ProductClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/ProductClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/StoreClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/StoreClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-app/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/client-app/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-app/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/client-app/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/StoreController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store-manager/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,13 +43,14 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/alexionescu1996/kafka-microservices.git&quot;,
-    &quot;accountId&quot;: &quot;b7624395-57e0-4e6b-8ab1-ace1d065016b&quot;
+    &quot;accountId&quot;: &quot;46560fd4-0319-46b9-b09c-e0da0ac512ce&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2yRm3GxDwncIc1oRfBUhmHUEVcG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -119,7 +114,7 @@
       <command value="mvn dependency:tree" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.StoreManagerApplication">
+  <component name="RunManager" selected="Application.com.example.client.app.ClientAppApplication">
     <configuration name="ApiGatewayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.api.gateway.ApiGatewayApplication" />
       <module name="api-gateway" />
@@ -187,10 +182,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StoreManagerApplication" />
         <item itemvalue="Application.com.example.client.app.ClientAppApplication" />
-        <item itemvalue="Application.OrderServiceApplication" />
         <item itemvalue="Application.ApiGatewayApplication" />
+        <item itemvalue="Application.StoreManagerApplication" />
+        <item itemvalue="Application.OrderServiceApplication" />
         <item itemvalue="Application.ClientAppApplication" />
       </list>
     </recent_temporary>
@@ -311,18 +306,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/StoreController.java</url>
-          <line>62</line>
+          <line>63</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/store-manager/src/main/java/com/example/config/WebSecurityConfig.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/store-manager/src/main/java/com/example/config/WebSecurityConfig.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

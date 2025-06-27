@@ -1,13 +1,12 @@
-feign:
-  name: feign-client
-#  url: http://localhost:8080
-  client:
-    config:
-      default:
-        connectTimeout: 5000
-        readTimeout: 5000
-        loggerLevel: basic
-
-  autoconfiguration:
-    jackson:
-      enabled: true
+#feign:
+#  name: feign-client
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 5000
+#        readTimeout: 5000
+#        loggerLevel: basic
+#
+#  autoconfiguration:
+#    jackson:
+#      enabled: true

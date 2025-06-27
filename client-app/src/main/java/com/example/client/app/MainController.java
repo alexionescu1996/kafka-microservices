@@ -21,22 +21,13 @@ public class MainController {
     public MainController(ProductClient productClient, StoreClient storeClient) {
         this.productClient = productClient;
         this.response = productClient.getProducts();
-        System.out.println("done init");
+        System.out.println("done init " + this.response.getProducts().size());
         this.storeClient = storeClient;
     }
 
-    @GetMapping(value = "/products")
-    ResponseEntity<?> getProducts() {
-        List<Product> list = response.getProducts();
-
-        System.out.println(list.size());
-
-        storeClient.postProduct(response);
-
-        List<Product> k = storeClient.list();
-        System.out.println(k);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+    @GetMapping
+    String test() {
+       return storeClient.postProduct(this.response);
     }
-
 
 }

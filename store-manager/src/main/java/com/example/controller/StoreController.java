@@ -5,6 +5,7 @@ import com.example.dto.ProductResponse;
 import com.example.model.Product;
 import com.example.service.ProductService;
 import com.example.utils.Utils;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -80,8 +81,9 @@ public class StoreController {
     }
 
     @GetMapping("/hello")
-    public String test(@RequestHeader("X-API-GATEWAY") String apiGet) {
-
+    public String test(@RequestHeader("X-API-GATEWAY") String apiGet, HttpServletRequest request) {
+        String rh = request.getHeader("Authorization");
+        System.out.println(rh);
         System.out.println("products " + apiGet.toUpperCase());
         return "All good from Products!";
     }

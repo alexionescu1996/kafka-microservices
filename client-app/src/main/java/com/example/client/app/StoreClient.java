@@ -12,16 +12,16 @@ import java.util.List;
 
 @FeignClient(
         value = "storeClient",
-        url = "http://localhost:8091",
+        url = "http://localhost:8090/products",
         configuration = FeignAuthInterceptor.class
 )
 public interface StoreClient {
 
-    @PostMapping("/products/add")
+    @PostMapping("/add")
     String postProduct(ProductResponse response);
 
-    @GetMapping("/products")
-    List<Product> list();
+    @GetMapping("/hello")
+    String test();
 }
 
 //Feign.builder()
