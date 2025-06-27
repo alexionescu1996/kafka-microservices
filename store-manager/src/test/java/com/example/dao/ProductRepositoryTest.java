@@ -24,7 +24,7 @@ public class ProductRepositoryTest {
     @Test
     void test_insert() {
         Product product = new Product();
-        product.setName("TESTING_NEW_PRODUCT");
+        product.setTitle("TESTING_NEW_PRODUCT");
         product.setPrice(BigDecimal.valueOf(23.11));
 
 //      merge to context and flush
@@ -33,7 +33,7 @@ public class ProductRepositoryTest {
 
         Product fromDB = repository.findById(saved.getId()).orElseThrow();
 
-        assertEquals("TESTING_NEW_PRODUCT", fromDB.getName());
+        assertEquals("TESTING_NEW_PRODUCT", fromDB.getTitle());
         assertEquals(BigDecimal.valueOf(23.11), product.getPrice());
     }
 }

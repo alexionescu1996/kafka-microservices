@@ -41,7 +41,7 @@ public class ProductService {
 
     @Transactional
     public void insert(ProductDTO productDTO) {
-        Boolean isPresent = productRepository.existsByName(productDTO.name());
+        Boolean isPresent = productRepository.existsByTitle(productDTO.getTitle());
 
         if (isPresent)
             throw new DuplicateProductException();

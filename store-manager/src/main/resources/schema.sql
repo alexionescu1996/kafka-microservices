@@ -1,5 +1,9 @@
 CREATE TABLE product (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    price DOUBLE NOT NULL
+    title VARCHAR(50)   ,
+    price DOUBLE  ,
+   category varchar(50)  ,
+   description varchar(250)  ,
+   stock int
+
 );

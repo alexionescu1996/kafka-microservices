@@ -41,7 +41,7 @@ public class StoreController {
     public ResponseEntity<?> findProductById(@PathVariable Integer id) {
         var product = productService.findById(id);
 
-        logger.info("Product found :: {}", product.name());
+        logger.info("Product found :: {}", product.getTitle());
 
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }
@@ -49,9 +49,9 @@ public class StoreController {
     @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO) {
-        Utils.validateInput(productDTO.price(), productDTO.name());
+        Utils.validateInput(productDTO.getPrice(), productDTO.getTitle());
 
-        logger.info("Adding product :: name {}, price {}", productDTO.name(), productDTO.price());
+        logger.info("Adding product :: name {}, price {}", productDTO.getTitle(), productDTO.getPrice());
         productService.insert(productDTO);
 
         return ResponseEntity
@@ -61,9 +61,19 @@ public class StoreController {
 
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addProducts(@RequestBody ProductResponse productResponse) {
-        List<Product> products = productResponse.getProducts();
 
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        List<ProductDTO> products = productResponse.getProducts()
+                .stream()
+                .map(ProductDTO::fromEntity)
+                .toList();
+
+        for (ProductDTO p : products) {
+            productService.insert(p);
+        }
+
+        List<ProductDTO> productDTOLit = productService.findAll();
+
+        return new ResponseEntity<>(productDTOLit, HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")

@@ -38,7 +38,7 @@ public class ProductServiceTest {
 
         assertEquals(3, list.size());
         verify(repository, times(1)).findAll();
-        assertEquals("test0", list.get(0).name());
+        assertEquals("test0", list.getFirst().getTitle());
     }
 
     @Test
@@ -56,8 +56,8 @@ public class ProductServiceTest {
         when(repository.findById(1)).thenReturn(Optional.of(product));
 
         ProductDTO productDTO = productService.findById(1);
-        assertEquals("test", productDTO.name());
-        assertEquals(BigDecimal.valueOf(1.25), productDTO.price());
+        assertEquals("test", productDTO.getTitle());
+        assertEquals(BigDecimal.valueOf(1.25), productDTO.getPrice());
 
         verify(repository, times(1)).findById(1);
     }
@@ -73,7 +73,7 @@ public class ProductServiceTest {
     void test_insert_new_product_when_success() {
         ProductDTO productDTO = new ProductDTO(null, "test", BigDecimal.valueOf(1.25));
 
-        when(repository.existsByName("test")).thenReturn(false);
+        when(repository.existsByTitle("test")).thenReturn(false);
 
         productService.insert(productDTO);
 
@@ -84,7 +84,7 @@ public class ProductServiceTest {
     void test_insert_new_product_when_duplicate() {
         ProductDTO productDTO = new ProductDTO(null, "test", BigDecimal.valueOf(1.25));
 
-        when(repository.existsByName("test")).thenReturn(true);
+        when(repository.existsByTitle("test")).thenReturn(true);
 
         assertThrows(DuplicateProductException.class, () -> productService.insert(productDTO));
         verify(repository, times(0)).save(any(Product.class));
@@ -104,7 +104,7 @@ public class ProductServiceTest {
         Product product = new Product();
         product.setId(1);
         product.setPrice(BigDecimal.valueOf(1.25));
-        product.setName("test");
+        product.setTitle("test");
         return product;
     }
 
@@ -113,7 +113,7 @@ public class ProductServiceTest {
         for (int i = 0; i < 3; i++) {
             Product product = new Product();
             product.setId(i + 1);
-            product.setName("test" + i);
+            product.setTitle("test" + i);
             product.setPrice(BigDecimal.valueOf(i * 10 + 3));
             list.add(product);
         }
