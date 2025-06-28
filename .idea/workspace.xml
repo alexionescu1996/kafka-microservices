@@ -4,19 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="872e571c-d9a8-4c8f-9080-00d07d239ef1" name="Changes" comment="changed ports and connected pieces">
+    <list default="true" id="872e571c-d9a8-4c8f-9080-00d07d239ef1" name="Changes" comment="added dummy products feign">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/StoreController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/store-manager/src/main/java/com/example/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/java/com/example/dto/ProductDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/src/main/java/com/example/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/java/com/example/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/src/main/java/com/example/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/java/com/example/repository/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/src/main/java/com/example/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/java/com/example/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/resources/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/resources/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store-manager/src/main/java/com/example/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/java/com/example/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store-manager/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/resources/logback.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/store-manager/src/test/java/com/example/controller/StoreControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/test/java/com/example/controller/StoreControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/src/test/java/com/example/dao/ProductRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/test/java/com/example/dao/ProductRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/src/test/java/com/example/service/ProductServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/test/java/com/example/service/ProductServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +44,6 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2yRm3GxDwncIc1oRfBUhmHUEVcG" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -62,7 +55,7 @@
     "Application.ClientAppApplication.executor": "Run",
     "Application.InventoryServiceApplication.executor": "Run",
     "Application.OrderServiceApplication.executor": "Run",
-    "Application.StoreManagerApplication.executor": "Run",
+    "Application.StoreManagerApplication.executor": "Debug",
     "Application.com.example.client.app.ClientAppApplication.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.CompleteableFutureTest.executor": "Run",
@@ -75,6 +68,7 @@
     "JUnit.ProductServiceTest.executor": "Run",
     "JUnit.StoreControllerTest.executor": "Run",
     "JUnit.StoreControllerTest.test_addProduct_when_duplicate.executor": "Run",
+    "JUnit.StoreControllerTest.test_addProduct_when_success.executor": "Run",
     "Maven.api-gateway [clean,install].executor": "Run",
     "Maven.api-gateway [dependency:tree].executor": "Run",
     "Maven.client-app [clean,install].executor": "Run",
@@ -118,7 +112,7 @@
       <command value="mvn dependency:tree" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.StoreManagerApplication">
+  <component name="RunManager" selected="Application.ApiGatewayApplication">
     <configuration name="ApiGatewayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.api.gateway.ApiGatewayApplication" />
       <module name="api-gateway" />
@@ -158,21 +152,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="store-manager" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.dao.ProductRepositoryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="StoreControllerTest.test_addProduct_when_duplicate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="store-manager" />
       <extension name="coverage">
@@ -189,13 +168,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StoreControllerTest.test_addProduct_when_success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="store-manager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.example.controller.StoreControllerTest" />
+      <option name="METHOD_NAME" value="test_addProduct_when_success" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StoreManagerApplication" />
         <item itemvalue="Application.ApiGatewayApplication" />
         <item itemvalue="Application.com.example.client.app.ClientAppApplication" />
+        <item itemvalue="Application.StoreManagerApplication" />
         <item itemvalue="JUnit.StoreControllerTest.test_addProduct_when_duplicate" />
-        <item itemvalue="JUnit.ProductRepositoryTest" />
+        <item itemvalue="JUnit.StoreControllerTest.test_addProduct_when_success" />
       </list>
     </recent_temporary>
   </component>
@@ -321,6 +316,11 @@
           <url>file://$PROJECT_DIR$/order-service/src/main/java/com/example/partitioner/OrderLevelPartitioner.java</url>
           <line>23</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/StoreController.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

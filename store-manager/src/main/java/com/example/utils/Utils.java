@@ -16,15 +16,15 @@ public class Utils {
         }
     }
 
-    public static void validateName(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Invalid name");
+    public static void validateTitle(String title) {
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Invalid title");
         }
     }
 
-    public static void validateInput(BigDecimal price, String name) {
+    public static void validateInput(BigDecimal price, String title) {
         validatePrice(price);
-        validateName(name);
+        validateTitle(title);
     }
 
 }

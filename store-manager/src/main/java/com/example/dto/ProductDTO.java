@@ -6,13 +6,30 @@ import java.math.BigDecimal;
 
 public class ProductDTO {
 
+    private Integer id;
+    private String title;
+    private BigDecimal price;
+    private String description;
+    private Integer stock;
+    private String category;
 
-    Integer id;
-    String title;
-    BigDecimal price;
-    String description;
-    Integer stock;
-    String category;
+    public ProductDTO() {
+    }
+
+    public ProductDTO(Integer id, String title, BigDecimal price, String description, Integer stock, String category) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.description = description;
+        this.stock = stock;
+        this.category = category;
+    }
+
+    public ProductDTO(Integer id, String title, BigDecimal price) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+    }
 
     public Integer getId() {
         return id;
@@ -71,21 +88,6 @@ public class ProductDTO {
                 product.getStock(),
                 product.getCategory()
         );
-    }
-
-    public ProductDTO(Integer id, String title, BigDecimal price, String description, Integer stock, String category) {
-        this.id = id;
-        this.title = title;
-        this.price = price;
-        this.description = description;
-        this.stock = stock;
-        this.category = category;
-    }
-
-    public ProductDTO(Integer id, String title, BigDecimal price) {
-        this.id = id;
-        this.title = title;
-        this.price = price;
     }
 
     public static Product toEntity(ProductDTO productDTO) {

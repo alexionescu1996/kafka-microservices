@@ -100,7 +100,7 @@ public class StoreControllerTest {
         verify(productService, times(1)).findById(1);
     }
 
-//    @Test
+    @Test
     void test_addProduct_when_success() throws Exception {
         mvc.perform(post("/products")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -110,7 +110,7 @@ public class StoreControllerTest {
         verify(productService, times(1)).insert(any(ProductDTO.class));
     }
 
-//    @Test
+    @Test
     void test_addProduct_when_duplicate() throws Exception {
         doThrow(new DuplicateProductException())
                 .when(productService).insert(any(ProductDTO.class));
@@ -146,7 +146,7 @@ public class StoreControllerTest {
 
     String insertRequestBody = """
             {
-            "name": "test",
+            "title": "test",
             "price": 1231.2
             }
             """;
