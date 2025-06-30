@@ -5,6 +5,10 @@ spring:
 server:
   port: 8090
 
+jwt:
+#  base64 encoded user:123456
+  secret: dXNlcjoxMjM0NTY=
+
 services:
   orders:
     url: http://localhost:8091

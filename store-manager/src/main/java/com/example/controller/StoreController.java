@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -46,7 +46,7 @@ public class StoreController {
         return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 
-    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO) {
         Utils.validateInput(productDTO.getPrice(), productDTO.getTitle());
@@ -76,7 +76,7 @@ public class StoreController {
         return new ResponseEntity<>(productDTOLit, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateProduct(@PathVariable Integer id,
                                            @RequestBody BigDecimal newPrice) {
