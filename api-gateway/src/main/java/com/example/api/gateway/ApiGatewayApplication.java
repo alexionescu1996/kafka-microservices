@@ -27,15 +27,22 @@ public class ApiGatewayApplication {
         return builder.routes()
                 .route(p -> p
                         .path("/orders/**")
-                        .filters(f -> f.addRequestHeader(
-                                "X-API-GATEWAY",
-                                UUID.randomUUID().toString()))
-                        .uri(ORDERS_URL))
+                        .filters(f -> f
+                                .addRequestHeader("X-API-GATEWAY", UUID.randomUUID().toString())
+                                .circuitBreaker(config -> config
+                                        .setName("orderCircuitBreaker")
+                                        .setFallbackUri("forward:/fallback/order"))
+                        )
+                        .uri(ORDERS_URL)
+                )
                 .route(p -> p
                         .path("/products/**")
-                        .filters(f -> f.addRequestHeader(
-                                "X-API-GATEWAY",
-                                UUID.randomUUID().toString()))
+                        .filters(f -> f
+                                .addRequestHeader("X-API-GATEWAY", UUID.randomUUID().toString())
+                                .circuitBreaker(config -> config
+                                        .setName("productCircuitBreaker")
+                                        .setFallbackUri("forward:/fallback/product"))
+                        )
                         .uri(PRODUCTS_URL))
                 .build();
     }
