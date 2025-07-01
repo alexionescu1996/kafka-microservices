@@ -30,12 +30,15 @@ public class StoreController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findAllProducts(@RequestHeader("Username") String user) {
-        logger.info("user :: {}", user);
+    public ResponseEntity<?> findAllProducts(@RequestHeader("Username") String username) {
+
+        logger.info("user :: {}", username);
         var list = productService.findAll();
         logger.info("Products list size :: {}", list.size());
 
-        return ResponseEntity.status(HttpStatus.OK).body(list);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(list);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,15 +47,26 @@ public class StoreController {
 
         logger.info("Product found :: {}", product.getTitle());
 
-        return ResponseEntity.status(HttpStatus.OK).body(product);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(product);
     }
 
     //    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO,
+                                        @RequestHeader("Username") String username) {
+
+        if (username != null && !username.isEmpty()) {
+            if (username.equals("user"))
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
         Utils.validateInput(productDTO.getPrice(), productDTO.getTitle());
 
-        logger.info("Adding product :: name {}, price {}", productDTO.getTitle(), productDTO.getPrice());
+        logger.info("Adding product :: name {}, price {}",
+                productDTO.getTitle(), productDTO.getPrice());
+
         productService.insert(productDTO);
 
         return ResponseEntity
@@ -80,7 +94,14 @@ public class StoreController {
     //    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateProduct(@PathVariable Integer id,
-                                           @RequestBody BigDecimal newPrice) {
+                                           @RequestBody BigDecimal newPrice,
+                                           @RequestHeader("Username") String username) {
+
+        if (username != null && !username.isEmpty()) {
+            if (username.equals("user"))
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
         Utils.validatePrice(newPrice);
         productService.update(id, newPrice);
 
