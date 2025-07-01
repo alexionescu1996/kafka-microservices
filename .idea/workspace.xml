@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="872e571c-d9a8-4c8f-9080-00d07d239ef1" name="Changes" comment="added dummy products feign">
-      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/api/gateway/AuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/api/gateway/GatewayConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/api/gateway/JwtUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/api/gateway/ApiGatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/api/gateway/ApiGatewayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/api/gateway/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/api/gateway/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/api/gateway/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/api/gateway/JwtUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/src/main/java/com/example/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/java/com/example/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/LoggerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/LoggerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/StoreController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,55 +44,54 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2yRm3GxDwncIc1oRfBUhmHUEVcG" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ApiGatewayApplication.executor": "Run",
-    "Application.ClientAppApplication.executor": "Run",
-    "Application.InventoryServiceApplication.executor": "Run",
-    "Application.OrderServiceApplication.executor": "Run",
-    "Application.StoreManagerApplication.executor": "Run",
-    "Application.com.example.client.app.ClientAppApplication.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.CompleteableFutureTest.executor": "Run",
-    "JUnit.CompleteableFutureTest.test3.executor": "Run",
-    "JUnit.CompleteableFutureTest.test6.executor": "Run",
-    "JUnit.CompleteableFutureTest.test7.executor": "Run",
-    "JUnit.CompleteableFutureTest.test8.executor": "Run",
-    "JUnit.CompleteableFutureTest.test9.executor": "Run",
-    "JUnit.ProductRepositoryTest.executor": "Run",
-    "JUnit.ProductServiceTest.executor": "Run",
-    "JUnit.StoreControllerTest.executor": "Run",
-    "JUnit.StoreControllerTest.test_addProduct_when_duplicate.executor": "Run",
-    "JUnit.StoreControllerTest.test_addProduct_when_success.executor": "Run",
-    "Maven.api-gateway [clean,install].executor": "Run",
-    "Maven.api-gateway [dependency:tree].executor": "Run",
-    "Maven.client-app [clean,install].executor": "Run",
-    "Maven.client-app [compile].executor": "Run",
-    "Maven.client-app [dependency:tree].executor": "Run",
-    "Maven.inventory-service [clean,install].executor": "Run",
-    "Maven.order-service [clean,install].executor": "Run",
-    "Maven.store-manager [clean,install].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/aionescu/IdeaProjects/kafka-microservices/client-app/src/main/resources",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.43448275",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ApiGatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ClientAppApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.InventoryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.OrderServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.StoreManagerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.example.client.app.ClientAppApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.CompleteableFutureTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test6.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test7.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test8.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test9.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StoreControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StoreControllerTest.test_addProduct_when_duplicate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StoreControllerTest.test_addProduct_when_success.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.api-gateway [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.api-gateway [dependency:tree].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.client-app [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.client-app [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.client-app [dependency:tree].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.inventory-service [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.order-service [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.store-manager [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/aionescu/IdeaProjects/kafka-microservices/client-app/src/main/resources&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.43448275&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/client-app/src/main/resources" />
@@ -118,7 +112,7 @@
       <command value="mvn dependency:tree" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.ApiGatewayApplication">
+  <component name="RunManager" selected="Application.StoreManagerApplication">
     <configuration name="ApiGatewayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.api.gateway.ApiGatewayApplication" />
       <module name="api-gateway" />
@@ -189,8 +183,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ApiGatewayApplication" />
         <item itemvalue="Application.StoreManagerApplication" />
+        <item itemvalue="Application.ApiGatewayApplication" />
         <item itemvalue="Application.OrderServiceApplication" />
         <item itemvalue="Application.com.example.client.app.ClientAppApplication" />
         <item itemvalue="JUnit.StoreControllerTest.test_addProduct_when_duplicate" />
@@ -322,12 +316,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/StoreController.java</url>
-          <line>51</line>
+          <line>52</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/api-gateway/src/main/java/com/example/api/gateway/AuthenticationFilter.java</url>
-          <line>40</line>
+          <line>38</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>

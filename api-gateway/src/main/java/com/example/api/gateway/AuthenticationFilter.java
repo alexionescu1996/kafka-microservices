@@ -12,19 +12,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
+
+import static com.example.api.gateway.JwtUtils.decodeBasicToken;
+import static com.example.api.gateway.JwtUtils.AuthUser;
+
+
 @Component
 public class AuthenticationFilter
         implements GatewayFilter {
 
     private static final Logger log = LoggerFactory.getLogger(AuthenticationFilter.class);
-
-    private final JwtUtils jwtUtils;
-
-    @Autowired
-    public AuthenticationFilter(JwtUtils jwtUtils) {
-        log.info("AuthenticationFilter ::");
-        this.jwtUtils = jwtUtils;
-    }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange,
@@ -44,14 +42,25 @@ public class AuthenticationFilter
                 .getFirst()
                 .replace("Basic ", "");
 
-        log.info("token :: {}", token);
-
-        if (jwtUtils.isExpired(token)) {
+        Optional<AuthUser> authUserOptional = decodeBasicToken(token);
+        if (authUserOptional.isEmpty()) {
             return onError(exchange);
-        }
+        } else {
+            AuthUser authUser = authUserOptional.get();
+            log.info("authUser :: {}", authUser);
+            request = request
+                    .mutate()
+                    .header("Username", authUser.username())
+                    .header("Password", authUser.password())
+                    .build();
 
-        return chain.filter(exchange)
-                .doOnSuccess(aVoid -> log.info("Filter completed successfully :: {} ", aVoid));
+            return chain.filter(
+                    exchange
+                            .mutate()
+                            .request(request)
+                            .build()
+            );
+        }
     }
 
     private Mono<Void> onError(ServerWebExchange exchange) {

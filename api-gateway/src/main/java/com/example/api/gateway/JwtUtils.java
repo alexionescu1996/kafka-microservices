@@ -1,20 +1,36 @@
 package com.example.api.gateway;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import java.util.Base64;
+import java.util.Map;
+import java.util.Optional;
 
-
-@Service
 public class JwtUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(JwtUtils.class);
+    public record AuthUser(String username, String password) {
+    }
 
-    @Value("${jwt.secret}")
-    private String secret;
+    private final static Map<String, String> credentials = Map.of(
+            "user", "123456",
+            "admin", "123456",
+            "manager", "123456"
+    );
 
-    public boolean isExpired(String token) {
-        return !secret.equals(token);
+    public static Optional<AuthUser> decodeBasicToken(String token) {
+
+        String decoded = new String(Base64.getDecoder().decode(token));
+        String[] parts = decoded.split(":");
+
+        String username = parts[0];
+        String password = parts[1];
+
+        return isValidUser(username, password) ?
+                Optional.of(new AuthUser(username, password)) :
+                Optional.empty();
+    }
+
+    private static boolean isValidUser(String username,
+                                       String password) {
+        return credentials.containsKey(username)
+                && credentials.get(username).equals(password);
     }
 }
