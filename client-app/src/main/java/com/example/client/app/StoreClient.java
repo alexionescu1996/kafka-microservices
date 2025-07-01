@@ -20,8 +20,8 @@ public interface StoreClient {
     @PostMapping("/add")
     String postProduct(ProductResponse response);
 
-    @GetMapping("/hello")
-    String test();
+    @GetMapping
+    ResponseEntity<?> findAll();
 }
 
 //Feign.builder()

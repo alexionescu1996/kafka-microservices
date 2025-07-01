@@ -29,9 +29,15 @@ public class MainController {
         this.storeClient = storeClient;
     }
 
-    @GetMapping
+    @PostMapping
     String postProducts() {
         return storeClient.postProduct(this.response);
     }
+
+    @GetMapping
+    ResponseEntity<?> findAll() {
+        return storeClient.findAll();
+    }
+
 
 }
