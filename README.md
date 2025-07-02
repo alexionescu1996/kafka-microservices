@@ -1,3 +1,3 @@
 # kafka-microservices
 
-<img width="815" alt="image" src="https://github.com/user-attachments/assets/2baebdd9-ddd1-4243-a9a8-44a806d2b585" />
+<img width="835" alt="image" src="https://github.com/user-attachments/assets/1f17824b-33b8-4e21-b26f-1ef22e278aa3" />
