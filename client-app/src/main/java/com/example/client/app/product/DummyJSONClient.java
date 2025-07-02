@@ -1,4 +1,4 @@
-package com.example.client.app;
+package com.example.client.app.product;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

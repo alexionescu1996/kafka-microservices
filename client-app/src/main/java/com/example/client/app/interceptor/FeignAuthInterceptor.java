@@ -1,4 +1,4 @@
-package com.example.client.app;
+package com.example.client.app.interceptor;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

@@ -1,4 +1,4 @@
-package com.example.client.app;
+package com.example.client.app.product;
 
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -8,10 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/client")
-public class MainController {
+@RequestMapping("/product")
+public class ProductController {
 
-    private final static Logger logger = LoggerFactory.getLogger(MainController.class);
+    private final static Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     ProductResponse response;
 
@@ -19,8 +19,8 @@ public class MainController {
     private final StoreClient storeClient;
 
     @Autowired
-    public MainController(DummyJSONClient dummyJSONClient,
-                          StoreClient storeClient) {
+    public ProductController(DummyJSONClient dummyJSONClient,
+                             StoreClient storeClient) {
 
         this.dummyJSONClient = dummyJSONClient;
         this.storeClient = storeClient;
