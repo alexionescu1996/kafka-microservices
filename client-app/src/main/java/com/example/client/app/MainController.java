@@ -1,32 +1,37 @@
 package com.example.client.app;
 
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/client")
 public class MainController {
 
     private final static Logger logger = LoggerFactory.getLogger(MainController.class);
 
-    ProductClient productClient;
     ProductResponse response;
-    StoreClient storeClient;
 
-    public MainController(ProductClient productClient, StoreClient storeClient) {
-        this.productClient = productClient;
-        this.response = productClient.getProducts();
+    private final DummyJSONClient dummyJSONClient;
+    private final StoreClient storeClient;
+
+    @Autowired
+    public MainController(DummyJSONClient dummyJSONClient,
+                          StoreClient storeClient) {
+
+        this.dummyJSONClient = dummyJSONClient;
+        this.storeClient = storeClient;
+    }
+
+    @PostConstruct
+    void init() {
+        this.response = dummyJSONClient.getProducts();
+
         logger.info("init done, dummy products size :: {}",
                 this.response.getProducts().size());
-        this.storeClient = storeClient;
     }
 
     @PostMapping
@@ -37,6 +42,11 @@ public class MainController {
     @GetMapping
     ResponseEntity<?> findAll() {
         return storeClient.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findProductById(@PathVariable Integer id) {
+        return storeClient.findProductById(id);
     }
 
 

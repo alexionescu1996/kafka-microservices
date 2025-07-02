@@ -11,16 +11,17 @@ import java.util.*;
 public class FeignAuthInterceptor
         implements RequestInterceptor {
 
+    private static final Logger log = LoggerFactory.getLogger(FeignAuthInterceptor.class);
+
     private final static List<AuthUser> authUsers = Arrays.asList(
             new AuthUser("user", "123456"),
             new AuthUser("admin", "123456"),
             new AuthUser("manager", "123456"));
 
-    private static final Logger log = LoggerFactory.getLogger(FeignAuthInterceptor.class);
-
     @Override
     public void apply(RequestTemplate requestTemplate) {
         Collections.shuffle(authUsers);
+
         AuthUser authUser = authUsers.getFirst();
         String user = authUser.username();
         String pass = authUser.password();
