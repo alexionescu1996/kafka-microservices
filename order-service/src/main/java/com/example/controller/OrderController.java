@@ -28,8 +28,7 @@ public class OrderController {
 
         orderService.process(order);
 
-        return ResponseEntity
-                .ok("Order processed");
+        return ResponseEntity.ok("Order processed");
     }
 
     @GetMapping("/hello")

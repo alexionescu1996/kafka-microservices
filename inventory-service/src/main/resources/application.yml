@@ -1,10 +1,10 @@
 spring:
   kafka:
-    bootstrap-servers: 192.168.1.141:9092
+    bootstrap-servers: localhost:9092
     consumer:
       group-id: orders-group
       auto-offset-reset: earliest
 
 server:
-  port: 8092
+  port: 8093
 

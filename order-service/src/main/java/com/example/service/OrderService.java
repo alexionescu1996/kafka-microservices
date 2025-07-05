@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.model.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,12 +39,16 @@ public class OrderService {
         );
 
         future.whenComplete((result, ex) -> {
+            ProducerRecord<Long, Order> pr = result.getProducerRecord();
+            log.info("printing producer record :: key {}, value {}", pr.key(), pr.value());
+
             RecordMetadata recordMetadata = result.getRecordMetadata();
             if (ex != null) {
                 log.error("order_error :: {ex}", ex);
             } else {
                 log.info("offset :: {}, topic :: {}, partition :: {}, order :: {}",
-                        recordMetadata.offset(), recordMetadata.topic(), recordMetadata.partition(), order.getProductName());
+                        recordMetadata.offset(), recordMetadata.topic(),
+                        recordMetadata.partition(), order.getProductName());
             }
         });
 
