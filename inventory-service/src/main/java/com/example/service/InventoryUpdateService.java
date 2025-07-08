@@ -5,9 +5,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,11 +15,11 @@ public class InventoryUpdateService {
 
     @KafkaListener(
             topics = "orders-topic",
-            groupId = "inventory-group"
+            groupId = "orders-group"
     )
-    public void processOrder(ConsumerRecord<String, Order> record) {
-
-        log.info("Order processed :: {}, key :: {}", record.value(), record.key());
+    public void processOrder(ConsumerRecord<Long, Order> record) {
+        Long key = record.key();
+        log.info("Order processed :: {}, key :: {}", record.value(), key);
     }
 }
 
