@@ -6,7 +6,6 @@ import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.LongSerializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.KafkaAdmin;
@@ -37,7 +36,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public NewTopic createOrdersTopic() {
+    public NewTopic ordersTopic() {
         return TopicBuilder.name(ordersTopic)
                 .partitions(3)
                 .replicas(3)

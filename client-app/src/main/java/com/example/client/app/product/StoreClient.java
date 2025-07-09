@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @FeignClient(
         value = "storeClient",
-        url = "http://localhost:8090/products",
+        url = "http://192.168.1.141:8090/products",
         configuration = FeignAuthInterceptor.class
 )
 public interface StoreClient {

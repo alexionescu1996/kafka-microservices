@@ -27,7 +27,7 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    ResponseEntity<?> createOrder(@RequestBody Order order) {
+    ResponseEntity<String> createOrder(@RequestBody Order order) {
         return orderClient.postOrder(order);
     }
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(
         value = "orderClient",
-        url = "http://localhost:8090/orders",
+        url = "http://192.168.1.141:8090/orders",
         configuration = FeignAuthInterceptor.class
 )
 public interface OrderClient {
@@ -19,8 +19,8 @@ public interface OrderClient {
     @GetMapping("/hello")
     String test();
 
-    @PostMapping("/add")
-    ResponseEntity<?> postOrder(@RequestBody Order order);
+    @PostMapping
+    ResponseEntity<String> postOrder(@RequestBody Order order);
 
     @GetMapping("/{id}")
     ResponseEntity<?> findOrderById(@PathVariable Integer id);
