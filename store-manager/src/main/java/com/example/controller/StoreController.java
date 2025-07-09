@@ -113,10 +113,14 @@ public class StoreController {
     }
 
     @GetMapping("/hello")
-    public String test(@RequestHeader("X-API-GATEWAY") String apiGet, HttpServletRequest request) {
-        String rh = request.getHeader("Authorization");
-        System.out.println(rh);
-        System.out.println("products " + apiGet.toUpperCase());
+    public String test(@RequestHeader("X-API-GATEWAY") String apiGet,
+                       @RequestHeader("Username") String username,
+                       @RequestHeader("X-Rate-Limit-Remaining") Long avbTokens) {
+
+        logger.info("X-API-GATEWAY :: {}", apiGet);
+        logger.info("Username :: {}", username);
+        logger.info("X-Rate-Limit-Remaining :: {}", avbTokens);
+
         return "All good from Products!";
     }
 }

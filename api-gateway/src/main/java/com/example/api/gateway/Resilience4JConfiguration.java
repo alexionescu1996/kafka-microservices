@@ -34,5 +34,3 @@ public class Resilience4JConfiguration {
                 .build());
     }
 }
-
-// TODO RateLimiter

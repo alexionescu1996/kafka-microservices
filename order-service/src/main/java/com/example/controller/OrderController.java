@@ -33,10 +33,11 @@ public class OrderController {
 
     @GetMapping("/hello")
     public String test(@RequestHeader("X-API-GATEWAY") String fromGateway,
-                       @RequestHeader("Username") String username) {
+                       @RequestHeader("Username") String username,
+                       @RequestHeader("X-Rate-Limit-Remaining") Long avbTokens) {
         log.info("username :: {}", username);
         log.info("X-API-GATEWAY :: {}", fromGateway.toUpperCase());
-
+        log.info("X-Rate-Limit-Remaining :: {}", avbTokens);
         return "All good from Orders!";
     }
 }

@@ -1,8 +1,9 @@
 package com.example.api.gateway;
 
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static com.example.api.gateway.JwtUtils.decodeBasicToken;
 import static com.example.api.gateway.JwtUtils.AuthUser;
@@ -24,11 +28,14 @@ public class AuthenticationFilter
 
     private static final Logger log = LoggerFactory.getLogger(AuthenticationFilter.class);
 
+    private final Map<String, Bucket> buckets = new ConcurrentHashMap<>();
+
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange,
                              GatewayFilterChain chain) {
 
-        log.info("testing ::");
+        log.info("gatewayFilter ::");
 
         ServerHttpRequest request = exchange.getRequest();
 
@@ -48,8 +55,17 @@ public class AuthenticationFilter
         } else {
             AuthUser authUser = authUserOptional.get();
             log.info("authUser :: {}", authUser);
+
+            Bucket bucket = buckets.computeIfAbsent(authUser.username(), this::createBucket);
+
+            if (!bucket.tryConsume(1)) {
+                exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
+                return exchange.getResponse().setComplete();
+            }
+
             request = request
                     .mutate()
+                    .header("X-Rate-Limit-Remaining", String.valueOf(bucket.getAvailableTokens()))
                     .header("Username", authUser.username())
                     .header("Password", authUser.password())
                     .build();
@@ -73,5 +89,23 @@ public class AuthenticationFilter
         return !request.getHeaders().containsKey("Authorization");
     }
 
+    private Bucket createBucket(String username) {
+
+        int maxRate = switch (username) {
+            case "user" -> 1;
+            case "manager" -> 2;
+            case "admin" -> 3;
+            default -> 0;
+        };
+
+        Bandwidth bandwidth = Bandwidth.builder()
+                .capacity(maxRate)
+                .refillIntervally(maxRate, Duration.ofSeconds(5))
+                .build();
+
+        return Bucket.builder()
+                .addLimit(bandwidth)
+                .build();
+    }
 
 }
