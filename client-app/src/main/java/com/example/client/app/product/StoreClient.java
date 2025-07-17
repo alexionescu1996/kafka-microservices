@@ -21,6 +21,6 @@ public interface StoreClient {
     ResponseEntity<?> findAll();
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findProductById(@PathVariable Integer id);
+    ResponseEntity<?> findProductById(@PathVariable Integer id);
 
 }

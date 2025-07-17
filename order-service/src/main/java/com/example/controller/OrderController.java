@@ -5,10 +5,7 @@ import com.example.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,6 +18,12 @@ public class OrderController {
     @Autowired
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
+    }
+
+    @PostMapping("/pay")
+    public String pay(@RequestBody String payment) {
+        orderService.sendPaymentEvent(payment);
+        return "ok";
     }
 
     @PostMapping
