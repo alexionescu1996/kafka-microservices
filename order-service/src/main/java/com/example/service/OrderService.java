@@ -1,19 +1,17 @@
 package com.example.service;
 
+import com.example.model.CreateOrderRequest;
 import com.example.model.Order;
+import com.example.model.OrderCreatedEvent;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -22,36 +20,36 @@ public class OrderService {
     final static Logger log =
             LoggerFactory.getLogger(OrderService.class);
 
-    private final KafkaTemplate<Long, Order> orderKafkaTemplate;
+    private final KafkaTemplate<String, OrderCreatedEvent> orderKafkaTemplate;
 
     @Autowired
-    public OrderService(
-            KafkaTemplate<Long, Order> orderKafkaTemplate) {
+    public OrderService(KafkaTemplate<String, OrderCreatedEvent> orderKafkaTemplate) {
         this.orderKafkaTemplate = orderKafkaTemplate;
     }
 
-    public void sendOrder(Order order) {
+    public void handleCreateOrder(CreateOrderRequest order) {
 
-//        make some process, like status is not delivered
-//        add Address
+        OrderCreatedEvent event = OrderCreatedEvent.createEventFromReq(order);
 
-        CompletableFuture<SendResult<Long, Order>> future = orderKafkaTemplate.send(
+        CompletableFuture<SendResult<String, OrderCreatedEvent>> future = orderKafkaTemplate.send(
                 "orders-topic",
-                order.getId(),
-                order
+                event.getOrderId(),
+                event
         );
 
         future.whenComplete((result, ex) -> {
-            ProducerRecord<Long, Order> pr = result.getProducerRecord();
-            log.info("printing producer record :: key {}, value {}", pr.key(), pr.value());
+            ProducerRecord<String, OrderCreatedEvent> producerRecord = result.getProducerRecord();
+
+            log.info("printing producer record :: key {}, value {}",
+                    producerRecord.key(), producerRecord.value());
 
             RecordMetadata recordMetadata = result.getRecordMetadata();
             if (ex != null) {
                 log.error("order_error :: {ex}", ex);
             } else {
-                log.info("offset :: {}, topic :: {}, partition :: {}, order :: {}",
+                log.info("offset :: {}, topic :: {}, partition :: {}, orderId :: {}",
                         recordMetadata.offset(), recordMetadata.topic(),
-                        recordMetadata.partition(), order.getProductName());
+                        recordMetadata.partition(), producerRecord.value().getOrderId());
             }
         });
 

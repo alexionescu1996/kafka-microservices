@@ -1,7 +1,6 @@
 package com.example.client.app.order;
 
 import com.example.client.app.interceptor.FeignAuthInterceptor;
-import com.example.client.app.product.ProductResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(
         value = "orderClient",
-        url = "http://192.168.1.141:8090/orders",
+        url = "http://localhost:8091/orders",
         configuration = FeignAuthInterceptor.class
 )
 public interface OrderClient {
@@ -20,7 +19,7 @@ public interface OrderClient {
     String test();
 
     @PostMapping
-    ResponseEntity<String> postOrder(@RequestBody Order order);
+    ResponseEntity<String> postOrder(@RequestBody CreateOrderRequest createOrderRequest);
 
     @GetMapping("/{id}")
     ResponseEntity<?> findOrderById(@PathVariable Integer id);

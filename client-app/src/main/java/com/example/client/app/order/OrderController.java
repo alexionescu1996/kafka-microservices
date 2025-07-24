@@ -1,7 +1,6 @@
 package com.example.client.app.order;
 
 
-import com.example.client.app.product.ProductResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,8 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    ResponseEntity<String> createOrder(@RequestBody Order order) {
-        return orderClient.postOrder(order);
+    ResponseEntity<String> createOrder(@RequestBody CreateOrderRequest createOrderRequest) {
+        return orderClient.postOrder(createOrderRequest);
     }
 
 

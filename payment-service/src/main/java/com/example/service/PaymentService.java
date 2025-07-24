@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.model.Order;
+import com.example.model.OrderCreatedEvent;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
@@ -23,20 +24,20 @@ public class PaymentService {
     final static Logger log =
             LoggerFactory.getLogger(PaymentService.class);
 
-    private final KafkaTemplate<String, String> paymentKafkaTemplate;
-
-    @Autowired
-    public PaymentService(KafkaTemplate<String, String> paymentKafkaTemplate) {
-        this.paymentKafkaTemplate = paymentKafkaTemplate;
-    }
+//    private final KafkaTemplate<String, OrderCreatedEvent> paymentKafkaTemplate;
+//
+//    @Autowired
+//    public PaymentService(KafkaTemplate<String, OrderCreatedEvent> paymentKafkaTemplate) {
+//        this.paymentKafkaTemplate = paymentKafkaTemplate;
+//    }
 
     @KafkaListener(
             topics = "orders-topic",
-            groupId = "orders-group-1"
+            groupId = "orders-group"
     )
-    public void sendPayment(ConsumerRecord<Long, Order> record) {
-        Long key = record.key();
-        Order order = record.value();
+    public void sendPayment(ConsumerRecord<String, OrderCreatedEvent> record) {
+        String key = record.key();
+        OrderCreatedEvent order = record.value();
 
         log.info("Order processed key :: {}, value :: {}",
                 key, order);
@@ -44,25 +45,25 @@ public class PaymentService {
 //      TODO  add payment logic here publish to payments-topic response
     }
 
-    public void sendPaymentEvent(String paymentEvent) {
-        Message<String> message = MessageBuilder
-                .withPayload(paymentEvent)
-                .setHeader(KafkaHeaders.KEY, UUID.randomUUID().toString())
-                .setHeader(KafkaHeaders.TOPIC, "payments-topic")
-                .build();
-
-        CompletableFuture<SendResult<String, String>> completableFuture = paymentKafkaTemplate.send(message);
-        completableFuture.whenComplete((result, exception) -> {
-            if (exception != null) {
-                log.error("order_error :: {ex}", exception);
-
-            } else {
-                ProducerRecord<String, String> producerRecord = result.getProducerRecord();
-                log.info("success payment :: {}, {}",
-                        producerRecord.key(), producerRecord.value());
-            }
-        });
-    }
+//    public void sendPaymentEvent(String paymentEvent) {
+//        Message<String> message = MessageBuilder
+//                .withPayload(paymentEvent)
+//                .setHeader(KafkaHeaders.KEY, UUID.randomUUID().toString())
+//                .setHeader(KafkaHeaders.TOPIC, "payments-topic")
+//                .build();
+//
+//        CompletableFuture<SendResult<String, String>> completableFuture = paymentKafkaTemplate.send(message);
+//        completableFuture.whenComplete((result, exception) -> {
+//            if (exception != null) {
+//                log.error("order_error :: {ex}", exception);
+//
+//            } else {
+//                ProducerRecord<String, String> producerRecord = result.getProducerRecord();
+//                log.info("success payment :: {}, {}",
+//                        producerRecord.key(), producerRecord.value());
+//            }
+//        });
+//    }
 
 
 }

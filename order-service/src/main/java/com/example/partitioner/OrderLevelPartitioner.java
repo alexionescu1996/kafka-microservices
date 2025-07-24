@@ -24,7 +24,7 @@ public class OrderLevelPartitioner
                          byte[] valueBytes,
                          Cluster cluster) {
 
-        Long key = (Long) objectKey;
+        String key = (String) objectKey;
         Order order = (Order) value;
         var condition = key != null && order != null && order.getIsDelivered();
 

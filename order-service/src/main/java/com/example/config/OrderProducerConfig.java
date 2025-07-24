@@ -1,11 +1,11 @@
 package com.example.config;
 
-import com.example.model.Order;
+import com.example.model.OrderCreatedEvent;
 import com.example.partitioner.OrderLevelPartitioner;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.LongSerializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,12 +50,12 @@ public class OrderProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<Long, Order> orderProducerFactory() {
+    public ProducerFactory<String, OrderCreatedEvent> orderProducerFactory() {
 
         Map<String, Object> configProps = new HashMap<>();
 
-        configProps.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,
-                OrderLevelPartitioner.class.getName());
+//        configProps.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,
+//                OrderLevelPartitioner.class.getName());
 
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -64,7 +64,7 @@ public class OrderProducerConfig {
 
         configProps.put(
                 ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
-                LongSerializer.class
+                StringSerializer.class
         );
 
         configProps.put(
@@ -76,7 +76,7 @@ public class OrderProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<Long, Order> orderKafkaTemplate() {
+    public KafkaTemplate<String, OrderCreatedEvent> orderKafkaTemplate() {
         return new KafkaTemplate<>(orderProducerFactory());
     }
 }

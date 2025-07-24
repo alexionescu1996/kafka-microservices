@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.model.Order;
+import com.example.model.CreateOrderRequest;
 import com.example.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +21,9 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createOrder(@RequestBody Order order) {
+    public ResponseEntity<String> createOrder(@RequestBody CreateOrderRequest order) {
 
-        orderService.sendOrder(order);
+        orderService.handleCreateOrder(order);
 
         return ResponseEntity.ok("Order processed");
     }

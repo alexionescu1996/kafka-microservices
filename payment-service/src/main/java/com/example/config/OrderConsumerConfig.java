@@ -1,8 +1,10 @@
 package com.example.config;
 
 import com.example.model.Order;
+import com.example.model.OrderCreatedEvent;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.LongDeserializer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +24,7 @@ public class OrderConsumerConfig {
     private String bootstrapServers;
 
     @Bean
-    public ConsumerFactory<Long, Order> consumerFactory() {
+    public ConsumerFactory<String, OrderCreatedEvent> consumerFactory() {
 
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -32,7 +34,7 @@ public class OrderConsumerConfig {
 
         props.put(
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-                LongDeserializer.class
+                StringDeserializer.class
         );
 
         props.put(
@@ -47,8 +49,8 @@ public class OrderConsumerConfig {
 
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<Long, Order> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<Long, Order> factory =
+    public ConcurrentKafkaListenerContainerFactory<String, OrderCreatedEvent> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, OrderCreatedEvent> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
 
         factory.setConsumerFactory(consumerFactory());
