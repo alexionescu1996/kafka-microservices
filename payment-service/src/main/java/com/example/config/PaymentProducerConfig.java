@@ -21,13 +21,10 @@ public class PaymentProducerConfig {
 
     private static final Logger log = LoggerFactory.getLogger(PaymentProducerConfig.class);
 
-
-    @Value("${spring.kafka.producer.bootstrap-servers}")
+    @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
-    @Value(
-            "${topic.payments.name}"
-    )
+    @Value("${topic.payments.name}")
     private String paymentsTopic;
 
     @Bean

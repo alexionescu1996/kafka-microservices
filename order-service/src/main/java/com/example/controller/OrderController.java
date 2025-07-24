@@ -20,16 +20,10 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/pay")
-    public String pay(@RequestBody String payment) {
-        orderService.sendPaymentEvent(payment);
-        return "ok";
-    }
-
     @PostMapping
     public ResponseEntity<String> createOrder(@RequestBody Order order) {
 
-        orderService.process(order);
+        orderService.sendOrder(order);
 
         return ResponseEntity.ok("Order processed");
     }

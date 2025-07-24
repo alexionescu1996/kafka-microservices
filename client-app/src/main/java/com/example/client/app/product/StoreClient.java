@@ -1,6 +1,7 @@
 package com.example.client.app.product;
 
 import com.example.client.app.interceptor.FeignAuthInterceptor;
+import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

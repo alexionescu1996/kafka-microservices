@@ -4,6 +4,9 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
 
+topic:
+  payments:
+    name: payments-topic
 
 server:
   port: 8095
