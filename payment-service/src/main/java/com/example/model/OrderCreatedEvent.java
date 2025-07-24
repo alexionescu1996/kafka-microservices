@@ -1,12 +1,14 @@
 package com.example.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 
 @Getter
+@Setter
 public class OrderCreatedEvent {
 
     private String orderId;

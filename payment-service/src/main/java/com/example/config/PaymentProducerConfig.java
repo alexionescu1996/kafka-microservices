@@ -1,5 +1,6 @@
 package com.example.config;
 
+import com.example.model.PaymentEvent;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -12,6 +13,7 @@ import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +41,7 @@ public class PaymentProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<String, String> paymentProducerFactory() {
+    public ProducerFactory<String, PaymentEvent> paymentProducerFactory() {
 
         Map<String, Object> configProps = new HashMap<>();
 
@@ -51,13 +53,13 @@ public class PaymentProducerConfig {
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                StringSerializer.class);
+                JsonSerializer.class);
 
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
     @Bean
-    public KafkaTemplate<String, String> paymentKafkaTemplate() {
+    public KafkaTemplate<String, PaymentEvent> paymentKafkaTemplate() {
         return new KafkaTemplate<>(paymentProducerFactory());
     }
 }

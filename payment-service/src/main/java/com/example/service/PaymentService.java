@@ -1,7 +1,6 @@
 package com.example.service;
 
-import com.example.model.Order;
-import com.example.model.OrderCreatedEvent;
+import com.example.model.*;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
@@ -15,6 +14,7 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -24,12 +24,12 @@ public class PaymentService {
     final static Logger log =
             LoggerFactory.getLogger(PaymentService.class);
 
-//    private final KafkaTemplate<String, OrderCreatedEvent> paymentKafkaTemplate;
-//
-//    @Autowired
-//    public PaymentService(KafkaTemplate<String, OrderCreatedEvent> paymentKafkaTemplate) {
-//        this.paymentKafkaTemplate = paymentKafkaTemplate;
-//    }
+    private final KafkaTemplate<String, PaymentEvent> paymentKafkaTemplate;
+
+    @Autowired
+    public PaymentService(KafkaTemplate<String, PaymentEvent> paymentKafkaTemplate) {
+        this.paymentKafkaTemplate = paymentKafkaTemplate;
+    }
 
     @KafkaListener(
             topics = "orders-topic",
@@ -39,31 +39,53 @@ public class PaymentService {
         String key = record.key();
         OrderCreatedEvent order = record.value();
 
-        log.info("Order processed key :: {}, value :: {}",
-                key, order);
+        log.info("Order processed key :: {}, value :: {}", key, order);
 
-//      TODO  add payment logic here publish to payments-topic response
+        simulatePayment(order);
     }
 
-//    public void sendPaymentEvent(String paymentEvent) {
-//        Message<String> message = MessageBuilder
-//                .withPayload(paymentEvent)
-//                .setHeader(KafkaHeaders.KEY, UUID.randomUUID().toString())
-//                .setHeader(KafkaHeaders.TOPIC, "payments-topic")
-//                .build();
-//
-//        CompletableFuture<SendResult<String, String>> completableFuture = paymentKafkaTemplate.send(message);
-//        completableFuture.whenComplete((result, exception) -> {
-//            if (exception != null) {
-//                log.error("order_error :: {ex}", exception);
-//
-//            } else {
-//                ProducerRecord<String, String> producerRecord = result.getProducerRecord();
-//                log.info("success payment :: {}, {}",
-//                        producerRecord.key(), producerRecord.value());
-//            }
-//        });
-//    }
+    private void simulatePayment(OrderCreatedEvent order) {
+        try {
+            Thread.sleep(1_000);
+            boolean success = Math.random() < 0.85; // 85% success rate
+
+            order.setStatus(success
+                    ? OrderStatus.PAYMENT_SUCCESSFUL
+                    : OrderStatus.PAYMENT_FAILED);
+
+            log.info("payment :: {}, {}", order.getOrderId(), order.getStatus());
+            publishPayment(order);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void publishPayment(OrderCreatedEvent order) {
+        PaymentEvent paymentEvent = PaymentEvent.builder()
+                .orderId(order.getOrderId())
+                .timestamp(new Date())
+                .build();
+
+        CompletableFuture<SendResult<String, PaymentEvent>> future =
+                paymentKafkaTemplate.send(
+                        "payments-topic",
+                        paymentEvent.getOrderId(),
+                        paymentEvent
+                );
+
+        future.whenComplete((result, exception) -> {
+            if (exception != null) {
+                log.error("payment_error :: {ex}", exception);
+            } else {
+                ProducerRecord<String, PaymentEvent> producerRecord =
+                        result.getProducerRecord();
+
+                log.debug("success payment :: {}, {}",
+                        producerRecord.key(), producerRecord.value());
+            }
+        });
+    }
+
 
 
 }

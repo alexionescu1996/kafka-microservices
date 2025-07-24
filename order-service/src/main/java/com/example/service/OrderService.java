@@ -31,11 +31,12 @@ public class OrderService {
 
         OrderCreatedEvent event = OrderCreatedEvent.createEventFromReq(order);
 
-        CompletableFuture<SendResult<String, OrderCreatedEvent>> future = orderKafkaTemplate.send(
-                "orders-topic",
-                event.getOrderId(),
-                event
-        );
+        CompletableFuture<SendResult<String, OrderCreatedEvent>> future =
+                orderKafkaTemplate.send(
+                        "orders-topic",
+                        event.getOrderId(),
+                        event
+                );
 
         future.whenComplete((result, ex) -> {
             ProducerRecord<String, OrderCreatedEvent> producerRecord = result.getProducerRecord();
@@ -47,7 +48,7 @@ public class OrderService {
             if (ex != null) {
                 log.error("order_error :: {ex}", ex);
             } else {
-                log.info("offset :: {}, topic :: {}, partition :: {}, orderId :: {}",
+                log.debug("offset :: {}, topic :: {}, partition :: {}, orderId :: {}",
                         recordMetadata.offset(), recordMetadata.topic(),
                         recordMetadata.partition(), producerRecord.value().getOrderId());
             }
@@ -55,4 +56,5 @@ public class OrderService {
 
     }
 
+//TODO add listener for orders
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(
         value = "orderClient",
-        url = "http://localhost:8091/orders",
+        url = "http://localhost:8090/orders",
         configuration = FeignAuthInterceptor.class
 )
 public interface OrderClient {
