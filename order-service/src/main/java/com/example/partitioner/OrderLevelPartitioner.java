@@ -1,6 +1,8 @@
 package com.example.partitioner;
 
 import com.example.model.Order;
+import com.example.model.OrderEvent;
+import com.example.model.OrderStatus;
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.common.Cluster;
 import org.apache.kafka.common.PartitionInfo;
@@ -25,8 +27,11 @@ public class OrderLevelPartitioner
                          Cluster cluster) {
 
         String key = (String) objectKey;
-        Order order = (Order) value;
-        var condition = key != null && order != null && order.getIsDelivered();
+        OrderEvent order = (OrderEvent) value;
+
+        var condition = key != null
+                && order != null
+                && order.getOrderStatus().equals(OrderStatus.PAYMENT_SUCCESSFUL);
 
         return condition ? 0 : findRandomPartition(cluster, topic);
     }

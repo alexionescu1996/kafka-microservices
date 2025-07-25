@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>createOrderRequest-service</artifactId>
+    <artifactId>order-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>createOrderRequest-service</name>
-    <description>Order service will act as a Producer in kafka</description>
+    <name>order-service</name>
+    <description>Order service</description>
     <properties>
         <java.version>23</java.version>
     </properties>

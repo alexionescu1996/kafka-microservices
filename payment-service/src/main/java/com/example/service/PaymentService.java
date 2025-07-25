@@ -39,6 +39,9 @@ public class PaymentService {
         String key = record.key();
         OrderCreatedEvent order = record.value();
 
+//        OrderStatus e null
+//        TODO
+
         log.info("Order processed key :: {}, value :: {}", key, order);
 
         simulatePayment(order);
@@ -47,12 +50,6 @@ public class PaymentService {
     private void simulatePayment(OrderCreatedEvent order) {
         try {
             Thread.sleep(1_000);
-            boolean success = Math.random() < 0.85; // 85% success rate
-
-            order.setStatus(success
-                    ? OrderStatus.PAYMENT_SUCCESSFUL
-                    : OrderStatus.PAYMENT_FAILED);
-
             log.info("payment :: {}, {}", order.getOrderId(), order.getStatus());
             publishPayment(order);
         } catch (InterruptedException e) {
@@ -61,8 +58,13 @@ public class PaymentService {
     }
 
     private void publishPayment(OrderCreatedEvent order) {
+        boolean success = Math.random() < 0.85; // 85% success rate
+
         PaymentEvent paymentEvent = PaymentEvent.builder()
                 .orderId(order.getOrderId())
+                .status(success
+                        ? PaymentStatus.PAYMENT_SUCCESSFUL
+                        : PaymentStatus.PAYMENT_FAILED)
                 .timestamp(new Date())
                 .build();
 
@@ -80,12 +82,11 @@ public class PaymentService {
                 ProducerRecord<String, PaymentEvent> producerRecord =
                         result.getProducerRecord();
 
-                log.debug("success payment :: {}, {}",
+                log.info("success payment :: {}, {}",
                         producerRecord.key(), producerRecord.value());
             }
         });
     }
-
 
 
 }

@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="872e571c-d9a8-4c8f-9080-00d07d239ef1" name="Changes" comment="added order created event">
-      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/example/model/PaymentEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/example/model/PaymentStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/payment-service/src/test/java/com/example/payment_service/RandomTest.java" afterDir="false" />
+    <list default="true" id="872e571c-d9a8-4c8f-9080-00d07d239ef1" name="Changes" comment="added payment event">
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/config/OrderPaymentProducerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/config/PaymentConsumerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/model/OrderEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/model/OrderUpdateEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/model/PaymentEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/model/PaymentStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/example/config/OrderProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/config/OrderProducerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/example/model/OrderCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/model/OrderCreatedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/example/partitioner/OrderLevelPartitioner.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/partitioner/OrderLevelPartitioner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/example/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/example/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/example/config/PaymentProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/example/config/PaymentProducerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/example/model/OrderCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/example/model/OrderCreatedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/example/config/OrderConsumerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/example/config/OrderConsumerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/example/model/PaymentEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/example/model/PaymentEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/example/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/example/service/PaymentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,60 +68,63 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ApiGatewayApplication.executor": "Run",
-    "Application.ClientAppApplication.executor": "Run",
-    "Application.InventoryServiceApplication.executor": "Run",
-    "Application.OrderServiceApplication.executor": "Run",
-    "Application.PaymentServiceApplication.executor": "Run",
-    "Application.StoreManagerApplication.executor": "Run",
-    "Application.com.example.client.app.ClientAppApplication.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.CompleteableFutureTest.executor": "Run",
-    "JUnit.CompleteableFutureTest.test3.executor": "Run",
-    "JUnit.CompleteableFutureTest.test6.executor": "Run",
-    "JUnit.CompleteableFutureTest.test7.executor": "Run",
-    "JUnit.CompleteableFutureTest.test8.executor": "Run",
-    "JUnit.CompleteableFutureTest.test9.executor": "Run",
-    "JUnit.ProductRepositoryTest.executor": "Run",
-    "JUnit.ProductServiceTest.executor": "Run",
-    "JUnit.RandomTest.test.executor": "Run",
-    "JUnit.StoreControllerTest.executor": "Run",
-    "JUnit.StoreControllerTest.test_addProduct_when_duplicate.executor": "Run",
-    "JUnit.StoreControllerTest.test_addProduct_when_success.executor": "Run",
-    "Maven.api-gateway [clean,install].executor": "Run",
-    "Maven.api-gateway [dependency:tree].executor": "Run",
-    "Maven.client-app [clean,install].executor": "Run",
-    "Maven.client-app [compile].executor": "Run",
-    "Maven.client-app [dependency:tree].executor": "Run",
-    "Maven.inventory-service [clean,install].executor": "Run",
-    "Maven.order-service [clean,install].executor": "Run",
-    "Maven.payment-service [clean,install].executor": "Run",
-    "Maven.store-manager [clean,install].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/kafka-microservices/payment-service/src/main/resources",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.43448275",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ApiGatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ClientAppApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.InventoryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.OrderServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PaymentServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.StoreManagerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.example.client.app.ClientAppApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.CompleteableFutureTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test6.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test7.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test8.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CompleteableFutureTest.test9.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RandomTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StoreControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StoreControllerTest.test_addProduct_when_duplicate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StoreControllerTest.test_addProduct_when_success.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.api-gateway [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.api-gateway [dependency:tree].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.client-app [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.client-app [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.client-app [dependency:tree].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.inventory-service [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.order-service [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.payment-service [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.store-manager [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/kafka-microservices/order-service/src/main/java/com/example/model&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.43448275&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.model" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\kafka-microservices\order-service\src\main\java\com\example\model" />
       <recent name="D:\kafka-microservices\payment-service\src\main\resources" />
       <recent name="D:\kafka-microservices\payment-service\src\main\java\com\example" />
       <recent name="D:\kafka-microservices\" />
       <recent name="$PROJECT_DIR$/client-app/src/main/resources" />
-      <recent name="$PROJECT_DIR$/store-manager/src/main/resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/client-app/src/main/java/com/example/client/app" />
@@ -132,7 +144,7 @@
       <command value="mvn dependency:tree" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.ClientAppApplication">
+  <component name="RunManager" selected="Application.OrderServiceApplication">
     <configuration name="ApiGatewayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.api.gateway.ApiGatewayApplication" />
       <module name="api-gateway" />
@@ -203,11 +215,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ClientAppApplication" />
-        <item itemvalue="Application.PaymentServiceApplication" />
-        <item itemvalue="JUnit.RandomTest.test" />
         <item itemvalue="Application.OrderServiceApplication" />
+        <item itemvalue="Application.PaymentServiceApplication" />
         <item itemvalue="Application.ApiGatewayApplication" />
+        <item itemvalue="Application.ClientAppApplication" />
+        <item itemvalue="JUnit.RandomTest.test" />
       </list>
     </recent_temporary>
   </component>
@@ -372,7 +384,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753344003863</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="added payment event">
+      <option name="closed" value="true" />
+      <created>1753392301035</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1753392301035</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -415,16 +435,12 @@
     <MESSAGE value="added payment service" />
     <MESSAGE value="removed inventory service" />
     <MESSAGE value="added order created event" />
-    <option name="LAST_COMMIT_MESSAGE" value="added order created event" />
+    <MESSAGE value="added payment event" />
+    <option name="LAST_COMMIT_MESSAGE" value="added payment event" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/order-service/src/main/java/com/example/partitioner/OrderLevelPartitioner.java</url>
-          <line>27</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/store-manager/src/main/java/com/example/controller/StoreController.java</url>
           <line>52</line>
@@ -434,6 +450,11 @@
           <url>file://$PROJECT_DIR$/api-gateway/src/main/java/com/example/api/gateway/AuthenticationFilter.java</url>
           <line>45</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/payment-service/src/main/java/com/example/service/PaymentService.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-gateway-server/4.3.0/spring-cloud-gateway-server-4.3.0.jar!/org/springframework/cloud/gateway/filter/GatewayFilterChain.class</url>

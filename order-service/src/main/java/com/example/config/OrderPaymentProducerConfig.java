@@ -1,6 +1,7 @@
 package com.example.config;
 
 import com.example.model.OrderCreatedEvent;
+import com.example.model.OrderUpdateEvent;
 import com.example.partitioner.OrderLevelPartitioner;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -9,40 +10,34 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.kafka.config.TopicBuilder;
-import org.springframework.kafka.core.KafkaAdmin;
-import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class OrderProducerConfig {
+public class OrderPaymentProducerConfig {
 
     private static final Logger log = LoggerFactory.getLogger(OrderProducerConfig.class);
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
-    @Value("${topic.orders.name}")
-    private String ordersTopic;
+    @Value("${topic.orders-update.name}")
+    private String ordersUpdateTopic;
+
 
     @Bean
-    public KafkaAdmin kafkaAdmin() {
-        Map<String, Object> configs = new HashMap<>();
-        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        return new KafkaAdmin(configs);
-    }
-
-    @Bean
-    public NewTopic ordersTopic() {
-        log.info("creating orders topic :: {}", ordersTopic);
-        return TopicBuilder.name(ordersTopic)
+    public NewTopic ordersUpdateTopic() {
+        log.info("creating orders-update topic :: {}", ordersUpdateTopic);
+        return TopicBuilder.name(ordersUpdateTopic)
                 .partitions(3)
                 .replicas(3)
                 .compact()
@@ -50,12 +45,12 @@ public class OrderProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<String, OrderCreatedEvent> orderProducerFactory() {
+    public ProducerFactory<String, OrderUpdateEvent> orderUpdateProducerFactory() {
 
         Map<String, Object> configProps = new HashMap<>();
 
-//        configProps.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,
-//                OrderLevelPartitioner.class.getName());
+        configProps.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,
+                OrderLevelPartitioner.class.getName());
 
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -76,7 +71,7 @@ public class OrderProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, OrderCreatedEvent> orderKafkaTemplate() {
-        return new KafkaTemplate<>(orderProducerFactory());
+    public KafkaTemplate<String, OrderUpdateEvent> orderUpdateKafkaTemplate() {
+        return new KafkaTemplate<>(orderUpdateProducerFactory());
     }
 }

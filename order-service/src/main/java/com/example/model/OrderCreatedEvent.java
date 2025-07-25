@@ -8,7 +8,8 @@ import java.util.UUID;
 
 
 @Getter
-public class OrderCreatedEvent {
+public class OrderCreatedEvent
+        implements OrderEvent {
 
     private String orderId;
     private Long productId;
@@ -17,7 +18,7 @@ public class OrderCreatedEvent {
     private BigDecimal totalPrice;
     private DeliveryAddress address;
     private Date createdAt;
-    private OrderStatus status;
+    private OrderStatus orderStatus;
 
     public static OrderCreatedEvent createEventFromReq(CreateOrderRequest request) {
         OrderCreatedEvent event = new OrderCreatedEvent();
@@ -27,8 +28,16 @@ public class OrderCreatedEvent {
         event.quantity = request.getQuantity();
         event.address = request.getAddress();
         event.totalPrice = request.getTotalPrice();
-        event.status = OrderStatus.ORDER_CREATED;
+        event.orderStatus = OrderStatus.ORDER_CREATED;
         event.createdAt = new Date();
         return event;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderCreatedEvent{" +
+                "orderId='" + orderId + '\'' +
+                ", orderStatus=" + orderStatus +
+                '}';
     }
 }
