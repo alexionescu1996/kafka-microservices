@@ -3,19 +3,19 @@ package com.example.service;
 import com.example.dto.ProductDTO;
 import com.example.exception.DuplicateProductException;
 import com.example.exception.ProductNotFoundException;
+import com.example.mapper.ProductMapper;
 import com.example.model.Product;
 import com.example.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -27,18 +27,35 @@ public class ProductServiceTest {
     @Mock
     private ProductRepository repository;
 
+    @Spy
+    private final ProductMapper mapper = Mappers.getMapper(ProductMapper.class);
+
     @InjectMocks
     private ProductService productService;
 
     @Test
     void test_findAll() {
-        when(repository.findAll()).thenReturn(findAll());
+
+        when(repository.findAll())
+                .thenReturn(findAll());
 
         List<ProductDTO> list = productService.findAll();
 
         assertEquals(3, list.size());
         verify(repository, times(1)).findAll();
         assertEquals("test0", list.getFirst().getTitle());
+    }
+
+
+    @Test
+    void test() {
+        Product product = new Product();
+        product.setTitle("Test");
+        product.setCategory("categ");
+
+        ProductDTO productDTO = mapper.toDTO(product);
+        System.out.println(product);
+        System.out.println(productDTO);
     }
 
     @Test
@@ -71,9 +88,14 @@ public class ProductServiceTest {
 
     @Test
     void test_insert_new_product_when_success() {
-        ProductDTO productDTO = new ProductDTO(null, "test", BigDecimal.valueOf(1.25));
+        ProductDTO productDTO = new ProductDTO(
+                null,
+                "test",
+                BigDecimal.valueOf(1.25)
+        );
 
-        when(repository.existsByTitle("test")).thenReturn(false);
+        when(repository.existsByTitle("test"))
+                .thenReturn(false);
 
         productService.insert(productDTO);
 

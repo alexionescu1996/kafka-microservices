@@ -2,10 +2,9 @@ package com.example.controller;
 
 import com.example.dto.ProductDTO;
 import com.example.dto.ProductResponse;
-import com.example.model.Product;
+import com.example.mapper.ProductMapper;
 import com.example.service.ProductService;
 import com.example.utils.Utils;
-import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -23,9 +22,11 @@ public class StoreController {
 
     private final Logger logger = LoggerFactory.getLogger(StoreController.class);
 
+    private final ProductMapper mapper;
     private final ProductService productService;
 
-    public StoreController(ProductService productService) {
+    public StoreController(ProductMapper mapper, ProductService productService) {
+        this.mapper = mapper;
         this.productService = productService;
     }
 
@@ -45,7 +46,7 @@ public class StoreController {
     public ResponseEntity<?> findProductById(@PathVariable Integer id) {
         var product = productService.findById(id);
 
-        logger.info("Product found :: {}", product.getTitle());
+//        logger.info("Product found :: {}", product.getTitle());
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -79,7 +80,7 @@ public class StoreController {
 
         List<ProductDTO> products = productResponse.getProducts()
                 .stream()
-                .map(ProductDTO::fromEntity)
+                .map(mapper::toDTO)
                 .toList();
 
         for (ProductDTO p : products) {
