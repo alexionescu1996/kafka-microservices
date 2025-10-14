@@ -28,7 +28,7 @@ public class ProductServiceTest {
     private ProductRepository repository;
 
     @Spy
-    private final ProductMapper mapper = Mappers.getMapper(ProductMapper.class);
+    private ProductMapper mapper = Mappers.getMapper(ProductMapper.class);
 
     @InjectMocks
     private ProductService productService;
@@ -51,11 +51,13 @@ public class ProductServiceTest {
     void test() {
         Product product = new Product();
         product.setTitle("Test");
-        product.setCategory("categ");
+        product.setCategory("category");
 
         ProductDTO productDTO = mapper.toDTO(product);
         System.out.println(product);
         System.out.println(productDTO);
+
+        assertEquals(product.getTitle(), productDTO.getTitle());
     }
 
     @Test
@@ -88,11 +90,11 @@ public class ProductServiceTest {
 
     @Test
     void test_insert_new_product_when_success() {
-        ProductDTO productDTO = new ProductDTO(
-                null,
-                "test",
-                BigDecimal.valueOf(1.25)
-        );
+
+        ProductDTO productDTO = ProductDTO.builder()
+                .title("test")
+                .category("test")
+                .build();
 
         when(repository.existsByTitle("test"))
                 .thenReturn(false);
@@ -104,9 +106,13 @@ public class ProductServiceTest {
 
     @Test
     void test_insert_new_product_when_duplicate() {
-        ProductDTO productDTO = new ProductDTO(null, "test", BigDecimal.valueOf(1.25));
+        ProductDTO productDTO = ProductDTO.builder()
+                .title("test")
+                .category("test")
+                .build();
 
-        when(repository.existsByTitle("test")).thenReturn(true);
+        when(repository.existsByTitle("test"))
+                .thenReturn(true);
 
         assertThrows(DuplicateProductException.class, () -> productService.insert(productDTO));
         verify(repository, times(0)).save(any(Product.class));

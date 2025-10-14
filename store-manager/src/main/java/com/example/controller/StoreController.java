@@ -5,6 +5,7 @@ import com.example.dto.ProductResponse;
 import com.example.mapper.ProductMapper;
 import com.example.service.ProductService;
 import com.example.utils.Utils;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class StoreController {
@@ -25,16 +27,11 @@ public class StoreController {
     private final ProductMapper mapper;
     private final ProductService productService;
 
-    public StoreController(ProductMapper mapper, ProductService productService) {
-        this.mapper = mapper;
-        this.productService = productService;
-    }
-
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findAllProducts(@RequestHeader("Username") String username) {
+    public ResponseEntity<List<ProductDTO>> findAllProducts(@RequestHeader("Username") String username) {
 
         logger.info("user :: {}", username);
-        var list = productService.findAll();
+        final var list = productService.findAll();
         logger.info("Products list size :: {}", list.size());
 
         return ResponseEntity

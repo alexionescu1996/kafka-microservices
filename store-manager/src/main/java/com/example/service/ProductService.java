@@ -25,7 +25,7 @@ public class ProductService {
     private final ProductMapper mapper;
 
     public List<ProductDTO> findAll() {
-        var products = productRepository.findAll();
+        final var products = productRepository.findAll();
         log.info("products :: {}", products);
         if (products.isEmpty())
             return Collections.emptyList();
@@ -41,8 +41,8 @@ public class ProductService {
 //                .toList();
     }
 
-    public ProductDTO findById(Integer id) {
-        Product product = productRepository.findById(id)
+    public ProductDTO findById(final Integer id) {
+        final Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException());
 
         return mapper.toDTO(product);

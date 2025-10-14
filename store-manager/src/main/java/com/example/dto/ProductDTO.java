@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
 public class ProductDTO {
@@ -18,12 +19,4 @@ public class ProductDTO {
     private Integer stock;
     private String category;
 
-    public ProductDTO() {
-    }
-
-    public ProductDTO(Integer id, String title, BigDecimal price) {
-        this.id = id;
-        this.title = title;
-        this.price = price;
-    }
 }
