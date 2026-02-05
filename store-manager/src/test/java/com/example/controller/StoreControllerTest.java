@@ -1,9 +1,12 @@
 package com.example.controller;
 
 import com.example.dto.ProductDTO;
+import com.example.dto.ProductDetailsDTO;
 import com.example.exception.DuplicateProductException;
 import com.example.exception.GlobalExceptionHandler;
 import com.example.exception.ProductNotFoundException;
+import com.example.model.AvailabilityStatus;
+import com.example.model.ProductCategory;
 import com.example.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,10 +20,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
+import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
@@ -40,6 +42,8 @@ public class StoreControllerTest {
 
     private MockMvc mvc;
 
+    private static final UUID PRODUCT_ID = UUID.fromString("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
+
     @BeforeEach
     void init() {
         mvc = MockMvcBuilders.standaloneSetup(storeController)
@@ -50,7 +54,8 @@ public class StoreControllerTest {
     void test_get_all_when_success() throws Exception {
         when(productService.findAll()).thenReturn(productList());
 
-        mvc.perform(get("/products"))
+        mvc.perform(get("/products")
+                        .header("Username", "user"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE));
 
@@ -63,7 +68,8 @@ public class StoreControllerTest {
         when(productService.findAll())
                 .thenReturn(Collections.emptyList());
 
-        mvc.perform(get("/products"))
+        mvc.perform(get("/products")
+                        .header("Username", "user"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE));
 
@@ -75,7 +81,8 @@ public class StoreControllerTest {
 
         when(productService.findAll()).thenThrow(new RuntimeException(":("));
 
-        mvc.perform(get("/products"))
+        mvc.perform(get("/products")
+                        .header("Username", "user"))
                 .andExpect(status().isInternalServerError());
 
         verify(productService, times(1)).findAll();
@@ -84,35 +91,40 @@ public class StoreControllerTest {
     @Test
     void test_findById_when_success() throws Exception {
         ProductDTO product = ProductDTO.builder()
-                .id(1)
-                .title("test")
-                .price(BigDecimal.valueOf(1.123))
+                .id(PRODUCT_ID)
+                .category(ProductCategory.ELECTRONICS)
+                .availabilityStatus(AvailabilityStatus.IN_STOCK)
+                .productDetails(ProductDetailsDTO.builder()
+                        .title("test")
+                        .price(BigDecimal.valueOf(1.123))
+                        .build())
                 .build();
 
-        when(productService.findById(1))
+        when(productService.findById(PRODUCT_ID))
                 .thenReturn(product);
 
-        mvc.perform(get("/products/1"))
+        mvc.perform(get("/products/" + PRODUCT_ID))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE));
 
         verify(productService, times(1))
-                .findById(product.getId());
+                .findById(PRODUCT_ID);
     }
 
     @Test
     void test_findById_when_invalid() throws Exception {
-        when(productService.findById(1)).thenThrow(new ProductNotFoundException());
+        when(productService.findById(PRODUCT_ID)).thenThrow(new ProductNotFoundException());
 
-        mvc.perform(get("/products/1"))
+        mvc.perform(get("/products/" + PRODUCT_ID))
                 .andExpect(status().isNotFound());
 
-        verify(productService, times(1)).findById(1);
+        verify(productService, times(1)).findById(PRODUCT_ID);
     }
 
     @Test
     void test_addProduct_when_success() throws Exception {
         mvc.perform(post("/products")
+                        .header("Username", "admin")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(insertRequestBody))
                 .andExpect(status().isCreated());
@@ -127,6 +139,7 @@ public class StoreControllerTest {
                 .when(productService).insert(any(ProductDTO.class));
 
         mvc.perform(post("/products")
+                        .header("Username", "admin")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(insertRequestBody))
                 .andExpect(status().isConflict());
@@ -136,18 +149,20 @@ public class StoreControllerTest {
 
     @Test
     void test_update_product_when_success() throws Exception {
-        mvc.perform(put("/products/1")
+        mvc.perform(put("/products/" + PRODUCT_ID)
+                        .header("Username", "admin")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updateRequestBody))
                 .andExpect(status().isOk());
 
         verify(productService, times(1))
-                .update(1, BigDecimal.valueOf(70.75));
+                .update(PRODUCT_ID, BigDecimal.valueOf(70.75));
     }
 
     @Test
     void test_update_product_when_invalid_price() throws Exception {
-        mvc.perform(put("/products/1")
+        mvc.perform(put("/products/" + PRODUCT_ID)
+                        .header("Username", "admin")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("aa"))
                 .andDo(print())
@@ -158,8 +173,12 @@ public class StoreControllerTest {
 
     String insertRequestBody = """
             {
-            "title": "test",
-            "price": 1231.2
+                "category": "ELECTRONICS",
+                "availabilityStatus": "IN_STOCK",
+                "productDetails": {
+                    "title": "test",
+                    "price": 1231.2
+                }
             }
             """;
 
@@ -168,9 +187,13 @@ public class StoreControllerTest {
         List<ProductDTO> list = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             ProductDTO product = ProductDTO.builder()
-                    .id(i)
-                    .title("test" + i)
-                    .price(BigDecimal.valueOf(1.123 * i + 0.24))
+                    .id(UUID.randomUUID())
+                    .category(ProductCategory.ELECTRONICS)
+                    .availabilityStatus(AvailabilityStatus.IN_STOCK)
+                    .productDetails(ProductDetailsDTO.builder()
+                            .title("test" + i)
+                            .price(BigDecimal.valueOf(1.123 * i + 0.24))
+                            .build())
                     .build();
             list.add(product);
         }

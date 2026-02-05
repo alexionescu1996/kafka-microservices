@@ -2,9 +2,13 @@ package com.example.repository;
 
 import com.example.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.UUID;
 
 public interface ProductRepository
-        extends JpaRepository<Product, Integer> {
+        extends JpaRepository<Product, UUID> {
 
-    Boolean existsByTitle(String name);
+    @Query("SELECT CASE WHEN COUNT(pd) > 0 THEN true ELSE false END FROM ProductDetails pd WHERE pd.title = :title")
+    Boolean existsByTitle(String title);
 }

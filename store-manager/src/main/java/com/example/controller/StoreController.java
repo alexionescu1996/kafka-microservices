@@ -2,7 +2,6 @@ package com.example.controller;
 
 import com.example.dto.ProductDTO;
 import com.example.dto.ProductResponse;
-import com.example.mapper.ProductMapper;
 import com.example.service.ProductService;
 import com.example.utils.Utils;
 import lombok.RequiredArgsConstructor;
@@ -11,11 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,7 +23,6 @@ public class StoreController {
 
     private final Logger logger = LoggerFactory.getLogger(StoreController.class);
 
-    private final ProductMapper mapper;
     private final ProductService productService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,17 +38,14 @@ public class StoreController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findProductById(@PathVariable Integer id) {
+    public ResponseEntity<?> findProductById(@PathVariable UUID id) {
         var product = productService.findById(id);
-
-//        logger.info("Product found :: {}", product.getTitle());
 
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(product);
     }
 
-    //    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO,
                                         @RequestHeader("Username") String username) {
@@ -60,10 +55,12 @@ public class StoreController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        Utils.validateInput(productDTO.getPrice(), productDTO.getTitle());
+        if (productDTO.getProductDetails() != null) {
+            Utils.validateInput(productDTO.getProductDetails().getPrice(),
+                    productDTO.getProductDetails().getTitle());
+        }
 
-        logger.info("Adding product :: name {}, price {}",
-                productDTO.getTitle(), productDTO.getPrice());
+        logger.info("Adding product :: category {}", productDTO.getCategory());
 
         productService.insert(productDTO);
 
@@ -75,23 +72,17 @@ public class StoreController {
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addProducts(@RequestBody ProductResponse productResponse) {
 
-        List<ProductDTO> products = productResponse.getProducts()
-                .stream()
-                .map(mapper::toDTO)
-                .toList();
-
-        for (ProductDTO p : products) {
+        for (ProductDTO p : productResponse.getProducts()) {
             productService.insert(p);
         }
 
-        List<ProductDTO> productDTOLit = productService.findAll();
+        List<ProductDTO> productDTOList = productService.findAll();
 
-        return new ResponseEntity<>(productDTOLit, HttpStatus.OK);
+        return new ResponseEntity<>(productDTOList, HttpStatus.OK);
     }
 
-    //    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateProduct(@PathVariable Integer id,
+    public ResponseEntity<?> updateProduct(@PathVariable UUID id,
                                            @RequestBody BigDecimal newPrice,
                                            @RequestHeader("Username") String username) {
 

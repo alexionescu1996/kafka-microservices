@@ -1,10 +1,14 @@
 package com.example.service;
 
 import com.example.dto.ProductDTO;
+import com.example.dto.ProductDetailsDTO;
 import com.example.exception.DuplicateProductException;
 import com.example.exception.ProductNotFoundException;
 import com.example.mapper.ProductMapper;
+import com.example.model.AvailabilityStatus;
 import com.example.model.Product;
+import com.example.model.ProductCategory;
+import com.example.model.ProductDetails;
 import com.example.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,6 +37,8 @@ public class ProductServiceTest {
     @InjectMocks
     private ProductService productService;
 
+    private static final UUID PRODUCT_ID = UUID.fromString("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
+
     @Test
     void test_findAll() {
 
@@ -43,21 +49,7 @@ public class ProductServiceTest {
 
         assertEquals(3, list.size());
         verify(repository, times(1)).findAll();
-        assertEquals("test0", list.getFirst().getTitle());
-    }
-
-
-    @Test
-    void test() {
-        Product product = new Product();
-        product.setTitle("Test");
-        product.setCategory("category");
-
-        ProductDTO productDTO = mapper.toDTO(product);
-        System.out.println(product);
-        System.out.println(productDTO);
-
-        assertEquals(product.getTitle(), productDTO.getTitle());
+        assertEquals("test0", list.getFirst().getProductDetails().getTitle());
     }
 
     @Test
@@ -72,28 +64,31 @@ public class ProductServiceTest {
     void test_findById_when_exists() {
         Product product = getProduct();
 
-        when(repository.findById(1)).thenReturn(Optional.of(product));
+        when(repository.findById(PRODUCT_ID)).thenReturn(Optional.of(product));
 
-        ProductDTO productDTO = productService.findById(1);
-        assertEquals("test", productDTO.getTitle());
-        assertEquals(BigDecimal.valueOf(1.25), productDTO.getPrice());
+        ProductDTO productDTO = productService.findById(PRODUCT_ID);
+        assertEquals("test", productDTO.getProductDetails().getTitle());
+        assertEquals(BigDecimal.valueOf(1.25), productDTO.getProductDetails().getPrice());
 
-        verify(repository, times(1)).findById(1);
+        verify(repository, times(1)).findById(PRODUCT_ID);
     }
 
     @Test
     void test_findById_when_productNotFound() {
-        when(repository.findById(1)).thenReturn(Optional.empty());
+        when(repository.findById(PRODUCT_ID)).thenReturn(Optional.empty());
 
-        assertThrows(ProductNotFoundException.class, () -> productService.findById(1));
+        assertThrows(ProductNotFoundException.class, () -> productService.findById(PRODUCT_ID));
     }
 
     @Test
     void test_insert_new_product_when_success() {
 
         ProductDTO productDTO = ProductDTO.builder()
-                .title("test")
-                .category("test")
+                .category(ProductCategory.ELECTRONICS)
+                .productDetails(ProductDetailsDTO.builder()
+                        .title("test")
+                        .price(BigDecimal.valueOf(100.00))
+                        .build())
                 .build();
 
         when(repository.existsByTitle("test"))
@@ -107,8 +102,11 @@ public class ProductServiceTest {
     @Test
     void test_insert_new_product_when_duplicate() {
         ProductDTO productDTO = ProductDTO.builder()
-                .title("test")
-                .category("test")
+                .category(ProductCategory.ELECTRONICS)
+                .productDetails(ProductDetailsDTO.builder()
+                        .title("test")
+                        .price(BigDecimal.valueOf(100.00))
+                        .build())
                 .build();
 
         when(repository.existsByTitle("test"))
@@ -121,18 +119,25 @@ public class ProductServiceTest {
     @Test
     void test_update_product() {
         Product product = getProduct();
-        when(repository.findById(1)).thenReturn(Optional.of(product));
+        when(repository.findById(PRODUCT_ID)).thenReturn(Optional.of(product));
 
-        productService.update(1, BigDecimal.valueOf(24.122));
+        productService.update(PRODUCT_ID, BigDecimal.valueOf(24.122));
 
-        assertEquals(BigDecimal.valueOf(24.122), product.getPrice());
+        assertEquals(BigDecimal.valueOf(24.122), product.getProductDetails().getPrice());
     }
 
     private Product getProduct() {
         Product product = new Product();
-        product.setId(1);
-        product.setPrice(BigDecimal.valueOf(1.25));
-        product.setTitle("test");
+        product.setId(PRODUCT_ID);
+        product.setCategory(ProductCategory.ELECTRONICS);
+        product.setAvailabilityStatus(AvailabilityStatus.IN_STOCK);
+
+        ProductDetails details = new ProductDetails();
+        details.setTitle("test");
+        details.setPrice(BigDecimal.valueOf(1.25));
+        details.setProduct(product);
+        product.setProductDetails(details);
+
         return product;
     }
 
@@ -140,9 +145,15 @@ public class ProductServiceTest {
         List<Product> list = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             Product product = new Product();
-            product.setId(i + 1);
-            product.setTitle("test" + i);
-            product.setPrice(BigDecimal.valueOf(i * 10 + 3));
+            product.setId(UUID.randomUUID());
+            product.setCategory(ProductCategory.ELECTRONICS);
+
+            ProductDetails details = new ProductDetails();
+            details.setTitle("test" + i);
+            details.setPrice(BigDecimal.valueOf(i * 10 + 3));
+            details.setProduct(product);
+            product.setProductDetails(details);
+
             list.add(product);
         }
         return list;

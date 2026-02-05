@@ -1,8 +1,11 @@
 package com.example.dto;
 
+import com.example.model.AvailabilityStatus;
+import com.example.model.ProductCategory;
 import lombok.*;
 
-import java.math.BigDecimal;
+import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -12,11 +15,10 @@ import java.math.BigDecimal;
 @Builder
 public class ProductDTO {
 
-    private Integer id;
-    private String title;
-    private BigDecimal price;
-    private String description;
-    private Integer stock;
-    private String category;
+    private UUID id;
+    private ProductCategory category;
+    private AvailabilityStatus availabilityStatus;
+    private ProductDetailsDTO productDetails;
+    private Set<ReviewDTO> reviews;
 
 }
