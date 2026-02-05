@@ -26,6 +26,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper mapper;
 
+    @Transactional(readOnly = true)
     public List<ProductDTO> findAll() {
         final var products = productRepository.findAll();
         log.info("products :: {}", products);
