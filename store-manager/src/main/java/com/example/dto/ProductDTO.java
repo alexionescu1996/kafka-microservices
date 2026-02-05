@@ -1,5 +1,7 @@
 package com.example.dto;
 
+import com.example.model.AvailabilityStatus;
+import com.example.model.ProductCategory;
 import lombok.*;
 
 import java.util.Set;
@@ -14,8 +16,8 @@ import java.util.UUID;
 public class ProductDTO {
 
     private UUID id;
-    private String category;
-    private String availabilityStatus;
+    private ProductCategory category;
+    private AvailabilityStatus availabilityStatus;
     private ProductDetailsDTO productDetails;
     private Set<ReviewDTO> reviews;
 
