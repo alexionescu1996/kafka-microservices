@@ -1,7 +1,6 @@
 package com.example.mapper;
 
 import com.example.dto.ProductDTO;
-import com.example.dto.ProductDetailsDTO;
 import com.example.dto.ReviewDTO;
 import com.example.model.Product;
 import com.example.model.ProductDetails;
@@ -12,9 +11,14 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface ProductMapper {
 
+    @Mapping(source = "productDetails.title", target = "title")
+    @Mapping(source = "productDetails.description", target = "description")
+    @Mapping(source = "productDetails.price", target = "price")
+    @Mapping(source = "productDetails.discount", target = "discount")
+    @Mapping(source = "productDetails.rating", target = "rating")
+    @Mapping(source = "productDetails.stock", target = "stock")
+    @Mapping(source = "productDetails.brand", target = "brand")
     ProductDTO toDTO(Product product);
-
-    ProductDetailsDTO toDetailsDTO(ProductDetails productDetails);
 
     ReviewDTO toReviewDTO(Review review);
 
@@ -25,7 +29,7 @@ public interface ProductMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "product", ignore = true)
-    ProductDetails toDetailsEntity(ProductDetailsDTO productDetailsDTO);
+    ProductDetails toDetailsEntity(ProductDTO productDTO);
 
     @Mapping(target = "id", ignore = true)
     Review toReviewEntity(ReviewDTO reviewDTO);

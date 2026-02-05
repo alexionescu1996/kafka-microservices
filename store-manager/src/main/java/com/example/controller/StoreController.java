@@ -54,12 +54,10 @@ public class StoreController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        if (productDTO.getProductDetails() != null) {
-            Utils.validateInput(productDTO.getProductDetails().getPrice(),
-                    productDTO.getProductDetails().getTitle());
-        }
+        Utils.validateInput(productDTO.getPrice(), productDTO.getTitle());
 
-        logger.info("Adding product :: category {}", productDTO.getCategory());
+        logger.info("Adding product :: name {}, price {}",
+                productDTO.getTitle(), productDTO.getPrice());
 
         productService.insert(productDTO);
 
