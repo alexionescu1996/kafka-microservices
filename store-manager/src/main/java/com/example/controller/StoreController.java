@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.dto.ProductDTO;
+import com.example.dto.ProductResponse;
 import com.example.service.ProductService;
 import com.example.utils.Utils;
 import lombok.RequiredArgsConstructor;
@@ -69,9 +70,9 @@ public class StoreController {
     }
 
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addProducts(@RequestBody List<ProductDTO> productDTOs) {
+    public ResponseEntity<?> addProducts(@RequestBody ProductResponse productResponse) {
 
-        for (ProductDTO p : productDTOs) {
+        for (ProductDTO p : productResponse.getProducts()) {
             productService.insert(p);
         }
 
