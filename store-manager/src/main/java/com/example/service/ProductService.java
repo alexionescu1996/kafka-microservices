@@ -48,14 +48,14 @@ public class ProductService {
 
     @Transactional
     public void insert(ProductDTO productDTO) {
-        if (productDTO.getTitle() != null) {
-            Boolean isPresent = productRepository.existsByTitle(productDTO.getTitle());
+        if (productDTO.getProductDetails() != null && productDTO.getProductDetails().getTitle() != null) {
+            Boolean isPresent = productRepository.existsByTitle(productDTO.getProductDetails().getTitle());
 
             if (isPresent)
                 throw new DuplicateProductException();
 
             Product newProduct = mapper.toEntity(productDTO);
-            ProductDetails details = mapper.toDetailsEntity(productDTO);
+            ProductDetails details = mapper.toDetailsEntity(productDTO.getProductDetails());
             details.setProduct(newProduct);
             newProduct.setProductDetails(details);
 
