@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.dto.ProductDTO;
+import com.example.dto.ProductDetailsDTO;
 import com.example.exception.DuplicateProductException;
 import com.example.exception.ProductNotFoundException;
 import com.example.mapper.ProductMapper;
@@ -48,7 +49,7 @@ public class ProductServiceTest {
 
         assertEquals(3, list.size());
         verify(repository, times(1)).findAll();
-        assertEquals("test0", list.getFirst().getTitle());
+        assertEquals("test0", list.getFirst().getProductDetails().getTitle());
     }
 
     @Test
@@ -66,8 +67,8 @@ public class ProductServiceTest {
         when(repository.findById(PRODUCT_ID)).thenReturn(Optional.of(product));
 
         ProductDTO productDTO = productService.findById(PRODUCT_ID);
-        assertEquals("test", productDTO.getTitle());
-        assertEquals(BigDecimal.valueOf(1.25), productDTO.getPrice());
+        assertEquals("test", productDTO.getProductDetails().getTitle());
+        assertEquals(BigDecimal.valueOf(1.25), productDTO.getProductDetails().getPrice());
 
         verify(repository, times(1)).findById(PRODUCT_ID);
     }
@@ -83,10 +84,11 @@ public class ProductServiceTest {
     void test_insert_new_product_when_success() {
 
         ProductDTO productDTO = ProductDTO.builder()
-                .title("test")
-                .price(BigDecimal.valueOf(100.00))
-                .category("ELECTRONICS")
-                .availabilityStatus("IN_STOCK")
+                .category(ProductCategory.ELECTRONICS)
+                .productDetails(ProductDetailsDTO.builder()
+                        .title("test")
+                        .price(BigDecimal.valueOf(100.00))
+                        .build())
                 .build();
 
         when(repository.existsByTitle("test"))
@@ -100,9 +102,11 @@ public class ProductServiceTest {
     @Test
     void test_insert_new_product_when_duplicate() {
         ProductDTO productDTO = ProductDTO.builder()
-                .title("test")
-                .price(BigDecimal.valueOf(100.00))
-                .category("ELECTRONICS")
+                .category(ProductCategory.ELECTRONICS)
+                .productDetails(ProductDetailsDTO.builder()
+                        .title("test")
+                        .price(BigDecimal.valueOf(100.00))
+                        .build())
                 .build();
 
         when(repository.existsByTitle("test"))

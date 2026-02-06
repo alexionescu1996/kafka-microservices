@@ -1,9 +1,12 @@
 package com.example.controller;
 
 import com.example.dto.ProductDTO;
+import com.example.dto.ProductDetailsDTO;
 import com.example.exception.DuplicateProductException;
 import com.example.exception.GlobalExceptionHandler;
 import com.example.exception.ProductNotFoundException;
+import com.example.model.AvailabilityStatus;
+import com.example.model.ProductCategory;
 import com.example.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,11 +91,13 @@ public class StoreControllerTest {
     @Test
     void test_findById_when_success() throws Exception {
         ProductDTO product = ProductDTO.builder()
-                .id(1)
-                .title("test")
-                .price(BigDecimal.valueOf(1.123))
-                .category("beauty")
-                .availabilityStatus("In Stock")
+                .id(PRODUCT_ID)
+                .category(ProductCategory.ELECTRONICS)
+                .availabilityStatus(AvailabilityStatus.IN_STOCK)
+                .productDetails(ProductDetailsDTO.builder()
+                        .title("test")
+                        .price(BigDecimal.valueOf(1.123))
+                        .build())
                 .build();
 
         when(productService.findById(PRODUCT_ID))
@@ -168,11 +173,12 @@ public class StoreControllerTest {
 
     String insertRequestBody = """
             {
-                "title": "test",
-                "price": 1231.2,
-                "category": "beauty",
-                "availabilityStatus": "In Stock",
-                "brand": "TestBrand"
+                "category": "ELECTRONICS",
+                "availabilityStatus": "IN_STOCK",
+                "productDetails": {
+                    "title": "test",
+                    "price": 1231.2
+                }
             }
             """;
 
@@ -181,11 +187,13 @@ public class StoreControllerTest {
         List<ProductDTO> list = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             ProductDTO product = ProductDTO.builder()
-                    .id(i + 1)
-                    .title("test" + i)
-                    .price(BigDecimal.valueOf(1.123 * i + 0.24))
-                    .category("beauty")
-                    .availabilityStatus("In Stock")
+                    .id(UUID.randomUUID())
+                    .category(ProductCategory.ELECTRONICS)
+                    .availabilityStatus(AvailabilityStatus.IN_STOCK)
+                    .productDetails(ProductDetailsDTO.builder()
+                            .title("test" + i)
+                            .price(BigDecimal.valueOf(1.123 * i + 0.24))
+                            .build())
                     .build();
             list.add(product);
         }

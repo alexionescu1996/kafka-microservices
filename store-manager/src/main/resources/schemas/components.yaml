@@ -12,34 +12,46 @@ components:
     ProductDTO:
       type: object
       required:
-        - id
-        - title
-        - description
         - category
-        - price
-        - discountPercentage
-        - rating
-        - stock
-        - brand
         - availabilityStatus
+        - productDetails
       properties:
         id:
-          type: integer
-          example: 1
+          type: string
+          format: uuid
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        category:
+          type: string
+          enum: [ BEAUTY, ELECTRONICS, CLOTHING, HOME, SPORTS, GROCERIES ]
+          example: ELECTRONICS
+        availabilityStatus:
+          type: string
+          enum: [ IN_STOCK, LOW_STOCK, OUT_OF_STOCK ]
+          example: IN_STOCK
+        productDetails:
+          $ref: '#/components/schemas/ProductDetailsDTO'
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewDTO'
+
+    ProductDetailsDTO:
+      type: object
+      required:
+        - title
+        - price
+      properties:
         title:
           type: string
           example: Essence Mascara Lash Princess
         description:
           type: string
           example: Popular mascara known for its volumizing effect
-        category:
-          type: string
-          example: beauty
         price:
           type: number
           format: double
           example: 9.99
-        discountPercentage:
+        discount:
           type: number
           format: double
           example: 7.17
@@ -53,6 +65,26 @@ components:
         brand:
           type: string
           example: Essence
-        availabilityStatus:
+
+    ReviewDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        rating:
+          type: integer
+          example: 5
+        comment:
           type: string
-          example: In Stock
+          example: Excellent product!
+        date:
+          type: string
+          format: date-time
+          example: 2025-01-15T10:30:00+00:00
+        reviewerName:
+          type: string
+          example: John Doe
+        reviewerEmail:
+          type: string
+          example: john@example.com
