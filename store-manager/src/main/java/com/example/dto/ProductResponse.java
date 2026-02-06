@@ -9,6 +9,6 @@ import java.util.List;
 @Setter
 public class ProductResponse {
 
-    private List<ProductDTO> products;
+    private List<ProductDTO> items;
 
 }

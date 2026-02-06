@@ -1,0 +1,58 @@
+components:
+  schemas:
+    ProductResponse:
+      type: object
+      required: [ items ]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDTO'
+
+    ProductDTO:
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - category
+        - price
+        - discountPercentage
+        - rating
+        - stock
+        - brand
+        - availabilityStatus
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Essence Mascara Lash Princess
+        description:
+          type: string
+          example: Popular mascara known for its volumizing effect
+        category:
+          type: string
+          example: beauty
+        price:
+          type: number
+          format: double
+          example: 9.99
+        discountPercentage:
+          type: number
+          format: double
+          example: 7.17
+        rating:
+          type: number
+          format: double
+          example: 4.94
+        stock:
+          type: integer
+          example: 5
+        brand:
+          type: string
+          example: Essence
+        availabilityStatus:
+          type: string
+          example: In Stock

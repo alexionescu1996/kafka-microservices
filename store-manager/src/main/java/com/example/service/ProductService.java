@@ -4,7 +4,9 @@ import com.example.dto.ProductDTO;
 import com.example.exception.DuplicateProductException;
 import com.example.exception.ProductNotFoundException;
 import com.example.mapper.ProductMapper;
+import com.example.model.AvailabilityStatus;
 import com.example.model.Product;
+import com.example.model.ProductCategory;
 import com.example.model.ProductDetails;
 import com.example.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -49,14 +51,24 @@ public class ProductService {
 
     @Transactional
     public void insert(ProductDTO productDTO) {
-        if (productDTO.getProductDetails() != null && productDTO.getProductDetails().getTitle() != null) {
-            Boolean isPresent = productRepository.existsByTitle(productDTO.getProductDetails().getTitle());
+        if (productDTO.getTitle() != null) {
+            Boolean isPresent = productRepository.existsByTitle(productDTO.getTitle());
 
             if (isPresent)
                 throw new DuplicateProductException();
 
             Product newProduct = mapper.toEntity(productDTO);
-            ProductDetails details = mapper.toDetailsEntity(productDTO.getProductDetails());
+
+            if (productDTO.getCategory() != null) {
+                newProduct.setCategory(ProductCategory.valueOf(productDTO.getCategory().toUpperCase()));
+            }
+            if (productDTO.getAvailabilityStatus() != null) {
+                newProduct.setAvailabilityStatus(
+                        AvailabilityStatus.valueOf(productDTO.getAvailabilityStatus()
+                                .toUpperCase().replace(" ", "_")));
+            }
+
+            ProductDetails details = mapper.toDetailsEntity(productDTO);
             details.setProduct(newProduct);
             newProduct.setProductDetails(details);
 

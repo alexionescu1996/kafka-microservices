@@ -1,9 +1,6 @@
 package com.example.controller;
 
 import com.example.dto.ProductDTO;
-import com.example.dto.ProductDetailsDTO;
-import com.example.model.AvailabilityStatus;
-import com.example.model.ProductCategory;
 import com.example.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -21,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -44,13 +40,11 @@ public class StoreControllerIT {
     @Test
     void test() throws Exception {
         ProductDTO productDTO = ProductDTO.builder()
-                .id(UUID.randomUUID())
-                .category(ProductCategory.ELECTRONICS)
-                .availabilityStatus(AvailabilityStatus.IN_STOCK)
-                .productDetails(ProductDetailsDTO.builder()
-                        .title("Test")
-                        .price(BigDecimal.valueOf(100.00))
-                        .build())
+                .id(1)
+                .title("Test")
+                .price(BigDecimal.valueOf(100.00))
+                .category("beauty")
+                .availabilityStatus("In Stock")
                 .build();
 
         when(productService.findAll())
