@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.dto.ProductDTO;
+import com.example.dto.ProductResponse;
 import com.example.dto.ProductDetailsDTO;
 import com.example.model.AvailabilityStatus;
 import com.example.model.ProductCategory;
@@ -43,7 +43,7 @@ public class StoreControllerIT {
 
     @Test
     void test() throws Exception {
-        ProductDTO productDTO = ProductDTO.builder()
+        ProductResponse productResponse = ProductResponse.builder()
                 .id(UUID.randomUUID())
                 .category(ProductCategory.ELECTRONICS)
                 .availabilityStatus(AvailabilityStatus.IN_STOCK)
@@ -54,7 +54,7 @@ public class StoreControllerIT {
                 .build();
 
         when(productService.findAll())
-                .thenReturn(List.of(productDTO));
+                .thenReturn(List.of(productResponse));
 
         this.mockMvc.perform(get("/products")
                         .header("Username", "user"))

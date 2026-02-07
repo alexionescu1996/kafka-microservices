@@ -1,6 +1,7 @@
 package com.example.controller;
 
-import com.example.dto.ProductDTO;
+import com.example.dto.BulkProductRequest;
+import com.example.dto.ProductRequest;
 import com.example.dto.ProductResponse;
 import com.example.service.ProductService;
 import com.example.utils.Utils;
@@ -26,7 +27,7 @@ public class StoreController {
     private final ProductService productService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ProductDTO>> findAllProducts(@RequestHeader("Username") String username) {
+    public ResponseEntity<List<ProductResponse>> findAllProducts(@RequestHeader("Username") String username) {
 
         logger.info("user :: {}", username);
         final var list = productService.findAll();
@@ -38,7 +39,7 @@ public class StoreController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findProductById(@PathVariable UUID id) {
+    public ResponseEntity<ProductResponse> findProductById(@PathVariable UUID id) {
         var product = productService.findById(id);
 
         return ResponseEntity
@@ -47,7 +48,7 @@ public class StoreController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO,
+    public ResponseEntity<?> addProduct(@RequestBody ProductRequest productRequest,
                                         @RequestHeader("Username") String username) {
 
         if (username != null && !username.isEmpty()) {
@@ -55,14 +56,14 @@ public class StoreController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        if (productDTO.getProductDetails() != null) {
-            Utils.validateInput(productDTO.getProductDetails().getPrice(),
-                    productDTO.getProductDetails().getTitle());
+        if (productRequest.getProductDetails() != null) {
+            Utils.validateInput(productRequest.getProductDetails().getPrice(),
+                    productRequest.getProductDetails().getTitle());
         }
 
-        logger.info("Adding product :: category {}", productDTO.getCategory());
+        logger.info("Adding product :: category {}", productRequest.getCategory());
 
-        productService.insert(productDTO);
+        productService.insert(productRequest);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -70,15 +71,15 @@ public class StoreController {
     }
 
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addProducts(@RequestBody ProductResponse productResponse) {
+    public ResponseEntity<List<ProductResponse>> addProducts(@RequestBody BulkProductRequest bulkRequest) {
 
-        for (ProductDTO p : productResponse.getItems()) {
+        for (ProductRequest p : bulkRequest.getItems()) {
             productService.insert(p);
         }
 
-        List<ProductDTO> productDTOList = productService.findAll();
+        List<ProductResponse> productList = productService.findAll();
 
-        return new ResponseEntity<>(productDTOList, HttpStatus.OK);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

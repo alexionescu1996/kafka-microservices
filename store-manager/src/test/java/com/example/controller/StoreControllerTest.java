@@ -1,6 +1,7 @@
 package com.example.controller;
 
-import com.example.dto.ProductDTO;
+import com.example.dto.ProductRequest;
+import com.example.dto.ProductResponse;
 import com.example.dto.ProductDetailsDTO;
 import com.example.exception.DuplicateProductException;
 import com.example.exception.GlobalExceptionHandler;
@@ -90,7 +91,7 @@ public class StoreControllerTest {
 
     @Test
     void test_findById_when_success() throws Exception {
-        ProductDTO product = ProductDTO.builder()
+        ProductResponse product = ProductResponse.builder()
                 .id(PRODUCT_ID)
                 .category(ProductCategory.ELECTRONICS)
                 .availabilityStatus(AvailabilityStatus.IN_STOCK)
@@ -130,13 +131,13 @@ public class StoreControllerTest {
                 .andExpect(status().isCreated());
 
         verify(productService, times(1))
-                .insert(any(ProductDTO.class));
+                .insert(any(ProductRequest.class));
     }
 
     @Test
     void test_addProduct_when_duplicate() throws Exception {
         doThrow(new DuplicateProductException())
-                .when(productService).insert(any(ProductDTO.class));
+                .when(productService).insert(any(ProductRequest.class));
 
         mvc.perform(post("/products")
                         .header("Username", "admin")
@@ -144,7 +145,7 @@ public class StoreControllerTest {
                         .content(insertRequestBody))
                 .andExpect(status().isConflict());
 
-        verify(productService, times(1)).insert(any(ProductDTO.class));
+        verify(productService, times(1)).insert(any(ProductRequest.class));
     }
 
     @Test
@@ -183,10 +184,10 @@ public class StoreControllerTest {
             """;
 
 
-    private List<ProductDTO> productList() {
-        List<ProductDTO> list = new ArrayList<>();
+    private List<ProductResponse> productList() {
+        List<ProductResponse> list = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            ProductDTO product = ProductDTO.builder()
+            ProductResponse product = ProductResponse.builder()
                     .id(UUID.randomUUID())
                     .category(ProductCategory.ELECTRONICS)
                     .availabilityStatus(AvailabilityStatus.IN_STOCK)

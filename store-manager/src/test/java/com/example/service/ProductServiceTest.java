@@ -1,6 +1,7 @@
 package com.example.service;
 
-import com.example.dto.ProductDTO;
+import com.example.dto.ProductRequest;
+import com.example.dto.ProductResponse;
 import com.example.dto.ProductDetailsDTO;
 import com.example.exception.DuplicateProductException;
 import com.example.exception.ProductNotFoundException;
@@ -45,7 +46,7 @@ public class ProductServiceTest {
         when(repository.findAll())
                 .thenReturn(findAll());
 
-        List<ProductDTO> list = productService.findAll();
+        List<ProductResponse> list = productService.findAll();
 
         assertEquals(3, list.size());
         verify(repository, times(1)).findAll();
@@ -55,7 +56,7 @@ public class ProductServiceTest {
     @Test
     void test_findAll_when_empty_rs() {
         when(repository.findAll()).thenReturn(Collections.emptyList());
-        List<ProductDTO> list = productService.findAll();
+        List<ProductResponse> list = productService.findAll();
         assertEquals(0, list.size());
         verify(repository, times(1)).findAll();
     }
@@ -66,9 +67,9 @@ public class ProductServiceTest {
 
         when(repository.findById(PRODUCT_ID)).thenReturn(Optional.of(product));
 
-        ProductDTO productDTO = productService.findById(PRODUCT_ID);
-        assertEquals("test", productDTO.getProductDetails().getTitle());
-        assertEquals(BigDecimal.valueOf(1.25), productDTO.getProductDetails().getPrice());
+        ProductResponse productResponse = productService.findById(PRODUCT_ID);
+        assertEquals("test", productResponse.getProductDetails().getTitle());
+        assertEquals(BigDecimal.valueOf(1.25), productResponse.getProductDetails().getPrice());
 
         verify(repository, times(1)).findById(PRODUCT_ID);
     }
@@ -83,7 +84,7 @@ public class ProductServiceTest {
     @Test
     void test_insert_new_product_when_success() {
 
-        ProductDTO productDTO = ProductDTO.builder()
+        ProductRequest productRequest = ProductRequest.builder()
                 .category(ProductCategory.ELECTRONICS)
                 .productDetails(ProductDetailsDTO.builder()
                         .title("test")
@@ -94,14 +95,14 @@ public class ProductServiceTest {
         when(repository.existsByTitle("test"))
                 .thenReturn(false);
 
-        productService.insert(productDTO);
+        productService.insert(productRequest);
 
         verify(repository, times(1)).save(any(Product.class));
     }
 
     @Test
     void test_insert_new_product_when_duplicate() {
-        ProductDTO productDTO = ProductDTO.builder()
+        ProductRequest productRequest = ProductRequest.builder()
                 .category(ProductCategory.ELECTRONICS)
                 .productDetails(ProductDetailsDTO.builder()
                         .title("test")
@@ -112,7 +113,7 @@ public class ProductServiceTest {
         when(repository.existsByTitle("test"))
                 .thenReturn(true);
 
-        assertThrows(DuplicateProductException.class, () -> productService.insert(productDTO));
+        assertThrows(DuplicateProductException.class, () -> productService.insert(productRequest));
         verify(repository, times(0)).save(any(Product.class));
     }
 

@@ -1,20 +1,25 @@
 components:
   schemas:
-    ProductResponse:
-      type: object
-      required: [ items ]
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductDTO'
-
-    ProductDTO:
+    ProductRequest:
       type: object
       required:
         - category
         - availabilityStatus
         - productDetails
+      properties:
+        category:
+          type: string
+          enum: [ BEAUTY, ELECTRONICS, CLOTHING, HOME, SPORTS, GROCERIES ]
+          example: ELECTRONICS
+        availabilityStatus:
+          type: string
+          enum: [ IN_STOCK, LOW_STOCK, OUT_OF_STOCK ]
+          example: IN_STOCK
+        productDetails:
+          $ref: '#/components/schemas/ProductDetailsDTO'
+
+    ProductResponse:
+      type: object
       properties:
         id:
           type: string
@@ -34,6 +39,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReviewDTO'
+
+    BulkProductRequest:
+      type: object
+      required: [ items ]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductRequest'
 
     ProductDetailsDTO:
       type: object

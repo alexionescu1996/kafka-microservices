@@ -1,14 +1,24 @@
 package com.example.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.example.model.AvailabilityStatus;
+import com.example.model.ProductCategory;
+import lombok.*;
 
-import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
+@ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ProductResponse {
 
-    private List<ProductDTO> items;
+    private UUID id;
+    private ProductCategory category;
+    private AvailabilityStatus availabilityStatus;
+    private ProductDetailsDTO productDetails;
+    private Set<ReviewDTO> reviews;
 
 }

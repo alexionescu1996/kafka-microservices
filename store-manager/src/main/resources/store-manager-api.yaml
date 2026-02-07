@@ -2,7 +2,7 @@ openapi: 3.0.3
 
 info:
   title: Product API
-  version: 1.0.3
+  version: 1.0.4
 
 paths:
   /products:
@@ -15,7 +15,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './schemas/components.yaml#/components/schemas/ProductResponse'
+                type: array
+                items:
+                  $ref: './schemas/components.yaml#/components/schemas/ProductResponse'
 
     post:
       summary: Add a single product
@@ -25,7 +27,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './schemas/components.yaml#/components/schemas/ProductDTO'
+              $ref: './schemas/components.yaml#/components/schemas/ProductRequest'
       responses:
         '201':
           description: Product created
@@ -51,7 +53,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './schemas/components.yaml#/components/schemas/ProductDTO'
+                $ref: './schemas/components.yaml#/components/schemas/ProductResponse'
         '404':
           description: Product not found
 
@@ -89,7 +91,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './schemas/components.yaml#/components/schemas/ProductResponse'
+              $ref: './schemas/components.yaml#/components/schemas/BulkProductRequest'
       responses:
         '200':
           description: Products added
@@ -98,4 +100,4 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: './schemas/components.yaml#/components/schemas/ProductDTO'
+                  $ref: './schemas/components.yaml#/components/schemas/ProductResponse'
