@@ -1,6 +1,7 @@
 package com.example.service;
 
-import com.example.dto.ProductDTO;
+import com.example.dto.ProductRequest;
+import com.example.dto.ProductResponse;
 import com.example.exception.DuplicateProductException;
 import com.example.exception.ProductNotFoundException;
 import com.example.mapper.ProductMapper;
@@ -27,7 +28,7 @@ public class ProductService {
     private final ProductMapper mapper;
 
     @Transactional(readOnly = true)
-    public List<ProductDTO> findAll() {
+    public List<ProductResponse> findAll() {
         final var products = productRepository.findAll();
         log.info("products :: {}", products);
         if (products.isEmpty())
@@ -36,27 +37,27 @@ public class ProductService {
         log.info("findAll service");
 
         return products.stream()
-                .map(mapper::toDTO)
+                .map(mapper::toResponse)
                 .toList();
     }
 
-    public ProductDTO findById(final UUID id) {
+    public ProductResponse findById(final UUID id) {
         final Product product = productRepository.findById(id)
                 .orElseThrow(ProductNotFoundException::new);
 
-        return mapper.toDTO(product);
+        return mapper.toResponse(product);
     }
 
     @Transactional
-    public void insert(ProductDTO productDTO) {
-        if (productDTO.getProductDetails() != null && productDTO.getProductDetails().getTitle() != null) {
-            Boolean isPresent = productRepository.existsByTitle(productDTO.getProductDetails().getTitle());
+    public void insert(ProductRequest productRequest) {
+        if (productRequest.getProductDetails() != null && productRequest.getProductDetails().getTitle() != null) {
+            Boolean isPresent = productRepository.existsByTitle(productRequest.getProductDetails().getTitle());
 
             if (isPresent)
                 throw new DuplicateProductException();
 
-            Product newProduct = mapper.toEntity(productDTO);
-            ProductDetails details = mapper.toDetailsEntity(productDTO.getProductDetails());
+            Product newProduct = mapper.toEntity(productRequest);
+            ProductDetails details = mapper.toDetailsEntity(productRequest.getProductDetails());
             details.setProduct(newProduct);
             newProduct.setProductDetails(details);
 
