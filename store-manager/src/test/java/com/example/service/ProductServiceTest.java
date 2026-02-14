@@ -119,12 +119,10 @@ public class ProductServiceTest {
 
     @Test
     void test_update_product() {
-        Product product = getProduct();
-        when(repository.findById(PRODUCT_ID)).thenReturn(Optional.of(product));
+        productService.updatePrice(PRODUCT_ID, BigDecimal.valueOf(24.122));
 
-        productService.update(PRODUCT_ID, BigDecimal.valueOf(24.122));
-
-        assertEquals(BigDecimal.valueOf(24.122), product.getProductDetails().getPrice());
+        verify(repository, times(1))
+                .updateProductPriceById(BigDecimal.valueOf(24.122), PRODUCT_ID);
     }
 
     private Product getProduct() {

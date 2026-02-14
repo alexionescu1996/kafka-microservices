@@ -157,7 +157,7 @@ public class StoreControllerTest {
                 .andExpect(status().isOk());
 
         verify(productService, times(1))
-                .update(PRODUCT_ID, BigDecimal.valueOf(70.75));
+                .updatePrice(PRODUCT_ID, BigDecimal.valueOf(70.75));
     }
 
     @Test
