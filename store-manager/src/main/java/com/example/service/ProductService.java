@@ -65,12 +65,7 @@ public class ProductService {
     }
 
     @Transactional
-    public void update(UUID id, BigDecimal newPrice) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(ProductNotFoundException::new);
-
-        if (product.getProductDetails() != null) {
-            product.getProductDetails().setPrice(newPrice);
-        }
+    public void updatePrice(UUID id, BigDecimal newPrice) {
+        productRepository.updateProductPriceById(newPrice, id);
     }
 }
