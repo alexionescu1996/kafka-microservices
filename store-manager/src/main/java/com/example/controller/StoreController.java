@@ -93,7 +93,7 @@ public class StoreController {
         }
 
         Utils.validatePrice(newPrice);
-        productService.update(id, newPrice);
+        productService.updatePrice(id, newPrice);
 
         logger.info("Updating product with :: id {}, newPrice {}", id, newPrice);
 
