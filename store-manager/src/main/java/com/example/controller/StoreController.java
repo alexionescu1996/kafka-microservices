@@ -5,6 +5,13 @@ import com.example.dto.ProductRequest;
 import com.example.dto.ProductResponse;
 import com.example.service.ProductService;
 import com.example.utils.Utils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +27,17 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/products")
+@Tag(name = "Products", description = "Product management operations")
 public class StoreController {
 
     private final Logger logger = LoggerFactory.getLogger(StoreController.class);
 
     private final ProductService productService;
 
+    @Operation(summary = "Get all products", operationId = "getProducts")
+    @ApiResponse(responseCode = "200", description = "List of products",
+            content = @Content(mediaType = "application/json",
+                    array = @ArraySchema(schema = @Schema(implementation = ProductResponse.class))))
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ProductResponse>> findAllProducts(@RequestHeader("Username") String username) {
 
@@ -38,8 +50,14 @@ public class StoreController {
                 .body(list);
     }
 
+    @Operation(summary = "Get product by ID", operationId = "getProductById")
+    @ApiResponse(responseCode = "200", description = "Product found",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = ProductResponse.class)))
+    @ApiResponse(responseCode = "404", description = "Product not found", content = @Content)
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProductResponse> findProductById(@PathVariable UUID id) {
+    public ResponseEntity<ProductResponse> findProductById(
+            @Parameter(description = "Product UUID", required = true) @PathVariable UUID id) {
         var product = productService.findById(id);
 
         return ResponseEntity
@@ -47,6 +65,10 @@ public class StoreController {
                 .body(product);
     }
 
+    @Operation(summary = "Add a single product", operationId = "addProduct")
+    @ApiResponse(responseCode = "201", description = "Product created")
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content)
+    @ApiResponse(responseCode = "409", description = "Duplicate product", content = @Content)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addProduct(@RequestBody ProductRequest productRequest,
                                         @RequestHeader("Username") String username) {
@@ -70,6 +92,10 @@ public class StoreController {
                 .build();
     }
 
+    @Operation(summary = "Bulk add products", operationId = "addProducts")
+    @ApiResponse(responseCode = "200", description = "Products added",
+            content = @Content(mediaType = "application/json",
+                    array = @ArraySchema(schema = @Schema(implementation = ProductResponse.class))))
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ProductResponse>> addProducts(@RequestBody BulkProductRequest bulkRequest) {
 
@@ -82,10 +108,15 @@ public class StoreController {
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
+    @Operation(summary = "Update product price", operationId = "updateProductPrice")
+    @ApiResponse(responseCode = "200", description = "Product updated")
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content)
+    @ApiResponse(responseCode = "404", description = "Product not found", content = @Content)
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateProduct(@PathVariable UUID id,
-                                           @RequestBody BigDecimal newPrice,
-                                           @RequestHeader("Username") String username) {
+    public ResponseEntity<?> updateProduct(
+            @Parameter(description = "Product UUID", required = true) @PathVariable UUID id,
+            @RequestBody BigDecimal newPrice,
+            @RequestHeader("Username") String username) {
 
         if (username != null && !username.isEmpty()) {
             if (username.equals("user"))
@@ -102,6 +133,8 @@ public class StoreController {
                 .build();
     }
 
+    @Operation(summary = "Health check", operationId = "healthCheck")
+    @ApiResponse(responseCode = "200", description = "Service is running")
     @GetMapping("/hello")
     public String test(@RequestHeader("X-API-GATEWAY") String apiGet,
                        @RequestHeader("Username") String username,
