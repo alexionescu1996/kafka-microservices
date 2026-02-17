@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,10 +39,8 @@ import java.util.List;
  * Key design decisions:
  * 1. Stateless sessions — no server-side session; every request carries a JWT.
  * 2. OAuth2 Resource Server with local JWT validation using an RSA key pair.
- *    The same key pair is used to sign tokens (JwtEncoder) and verify them (JwtDecoder).
- * 3. A custom JwtAuthenticationConverter maps the "role" claim in the JWT to
- *    Spring Security GrantedAuthority objects, enabling @PreAuthorize checks.
- * 4. /auth/** endpoints are publicly accessible; everything under /api/** requires authentication.
+ * 3. A custom JwtAuthenticationConverter maps the "role" claim to GrantedAuthority.
+ * 4. /auth/** and OpenAPI/Swagger paths are publicly accessible.
  */
 @Configuration
 @EnableWebSecurity
@@ -63,6 +60,11 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
                         .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -74,7 +76,6 @@ public class SecurityConfig {
 
     /**
      * Converts the "role" claim in the JWT into a Spring Security GrantedAuthority.
-     * This enables role-based access control with @PreAuthorize("hasAuthority('ROLE_ADMIN')").
      */
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {

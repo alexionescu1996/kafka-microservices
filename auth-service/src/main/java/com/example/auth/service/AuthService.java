@@ -7,6 +7,7 @@ import com.example.auth.dto.RegisterRequest;
 import com.example.auth.entity.Role;
 import com.example.auth.entity.UserEntity;
 import com.example.auth.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,14 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Orchestrates authentication workflows: registration, login, and token refresh.
- *
- * - Registration validates uniqueness, hashes the password, and persists the user.
- * - Login delegates credential verification to Spring Security's AuthenticationManager,
- *   then issues a token pair.
- * - Refresh decodes the provided refresh token, verifies it is not an access token,
- *   and issues a fresh token pair.
  */
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
     private final UserRepository userRepository;
@@ -32,20 +28,6 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final JwtDecoder jwtDecoder;
-
-    public AuthService(
-            UserRepository userRepository,
-            PasswordEncoder passwordEncoder,
-            JwtService jwtService,
-            AuthenticationManager authenticationManager,
-            JwtDecoder jwtDecoder
-    ) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-        this.authenticationManager = authenticationManager;
-        this.jwtDecoder = jwtDecoder;
-    }
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {
