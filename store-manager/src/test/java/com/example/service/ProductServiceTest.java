@@ -84,13 +84,11 @@ public class ProductServiceTest {
     @Test
     void test_insert_new_product_when_success() {
 
-        ProductRequest productRequest = ProductRequest.builder()
+        ProductRequest productRequest = new ProductRequest()
                 .category(ProductCategory.ELECTRONICS)
-                .productDetails(ProductDetailsDTO.builder()
+                .productDetails(new ProductDetailsDTO()
                         .title("test")
-                        .price(BigDecimal.valueOf(100.00))
-                        .build())
-                .build();
+                        .price(BigDecimal.valueOf(100.00)));
 
         when(repository.existsByTitle("test"))
                 .thenReturn(false);
@@ -102,13 +100,11 @@ public class ProductServiceTest {
 
     @Test
     void test_insert_new_product_when_duplicate() {
-        ProductRequest productRequest = ProductRequest.builder()
+        ProductRequest productRequest = new ProductRequest()
                 .category(ProductCategory.ELECTRONICS)
-                .productDetails(ProductDetailsDTO.builder()
+                .productDetails(new ProductDetailsDTO()
                         .title("test")
-                        .price(BigDecimal.valueOf(100.00))
-                        .build())
-                .build();
+                        .price(BigDecimal.valueOf(100.00)));
 
         when(repository.existsByTitle("test"))
                 .thenReturn(true);

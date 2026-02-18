@@ -1,0 +1,260 @@
+openapi: 3.0.3
+
+info:
+  title: Store Manager API
+  description: Product management microservice API
+  version: 1.1.0
+
+paths:
+  /products:
+    get:
+      summary: Get all products
+      operationId: getProducts
+      tags: [ Products ]
+      parameters:
+        - name: Username
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductResponse'
+
+    post:
+      summary: Add a single product
+      operationId: addProduct
+      tags: [ Products ]
+      parameters:
+        - name: Username
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequest'
+      responses:
+        '201':
+          description: Product created
+        '401':
+          description: Unauthorized
+        '409':
+          description: Duplicate product
+
+  /products/{id}:
+    get:
+      summary: Get product by ID
+      operationId: getProductById
+      tags: [ Products ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Product found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+        '404':
+          description: Product not found
+
+    put:
+      summary: Update product price
+      operationId: updateProductPrice
+      tags: [ Products ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: Username
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: number
+      responses:
+        '200':
+          description: Product updated
+        '401':
+          description: Unauthorized
+        '404':
+          description: Product not found
+
+  /products/add:
+    post:
+      summary: Bulk add products
+      operationId: addProducts
+      tags: [ Products ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkProductRequest'
+      responses:
+        '200':
+          description: Products added
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductResponse'
+
+components:
+  schemas:
+
+    ProductCategory:
+      type: string
+      enum:
+        - BEAUTY
+        - ELECTRONICS
+        - CLOTHING
+        - HOME
+        - SPORTS
+        - GROCERIES
+
+    AvailabilityStatus:
+      type: string
+      enum:
+        - IN_STOCK
+        - LOW_STOCK
+        - OUT_OF_STOCK
+
+    ProductDetailsDTO:
+      type: object
+      description: Product details information
+      required:
+        - title
+        - price
+      properties:
+        title:
+          type: string
+          description: Product title
+          example: Essence Mascara Lash Princess
+        description:
+          type: string
+          description: Product description
+          example: Popular mascara known for its volumizing effect
+        price:
+          type: number
+          description: Product price
+          example: 9.99
+        discount:
+          type: number
+          description: Discount percentage
+          example: 7.17
+        rating:
+          type: number
+          description: Average rating
+          example: 4.94
+        stock:
+          type: integer
+          description: Available stock quantity
+          example: 5
+        brand:
+          type: string
+          description: Brand name
+          example: Essence
+
+    ReviewDTO:
+      type: object
+      description: Product review
+      properties:
+        id:
+          type: integer
+          description: Review identifier
+          example: 1
+        rating:
+          type: integer
+          description: Rating score
+          example: 5
+        comment:
+          type: string
+          description: Review comment
+          example: Excellent product!
+        date:
+          type: string
+          format: date-time
+          description: Review date
+          example: "2025-01-15T10:30:00+00:00"
+        reviewerName:
+          type: string
+          description: Reviewer name
+          example: John Doe
+        reviewerEmail:
+          type: string
+          description: Reviewer email
+          example: john@example.com
+
+    ProductRequest:
+      type: object
+      description: Request payload for creating a new product
+      required:
+        - category
+        - availabilityStatus
+        - productDetails
+      properties:
+        category:
+          $ref: '#/components/schemas/ProductCategory'
+        availabilityStatus:
+          $ref: '#/components/schemas/AvailabilityStatus'
+        productDetails:
+          $ref: '#/components/schemas/ProductDetailsDTO'
+
+    ProductResponse:
+      type: object
+      description: Response payload representing a product
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique product identifier
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        category:
+          $ref: '#/components/schemas/ProductCategory'
+        availabilityStatus:
+          $ref: '#/components/schemas/AvailabilityStatus'
+        productDetails:
+          $ref: '#/components/schemas/ProductDetailsDTO'
+        reviews:
+          type: array
+          uniqueItems: true
+          description: Product reviews
+          items:
+            $ref: '#/components/schemas/ReviewDTO'
+
+    BulkProductRequest:
+      type: object
+      description: Wrapper for bulk product creation
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          description: List of products to create
+          items:
+            $ref: '#/components/schemas/ProductRequest'

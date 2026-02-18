@@ -91,15 +91,13 @@ public class StoreControllerTest {
 
     @Test
     void test_findById_when_success() throws Exception {
-        ProductResponse product = ProductResponse.builder()
+        ProductResponse product = new ProductResponse()
                 .id(PRODUCT_ID)
                 .category(ProductCategory.ELECTRONICS)
                 .availabilityStatus(AvailabilityStatus.IN_STOCK)
-                .productDetails(ProductDetailsDTO.builder()
+                .productDetails(new ProductDetailsDTO()
                         .title("test")
-                        .price(BigDecimal.valueOf(1.123))
-                        .build())
-                .build();
+                        .price(BigDecimal.valueOf(1.123)));
 
         when(productService.findById(PRODUCT_ID))
                 .thenReturn(product);
@@ -187,15 +185,13 @@ public class StoreControllerTest {
     private List<ProductResponse> productList() {
         List<ProductResponse> list = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            ProductResponse product = ProductResponse.builder()
+            ProductResponse product = new ProductResponse()
                     .id(UUID.randomUUID())
                     .category(ProductCategory.ELECTRONICS)
                     .availabilityStatus(AvailabilityStatus.IN_STOCK)
-                    .productDetails(ProductDetailsDTO.builder()
+                    .productDetails(new ProductDetailsDTO()
                             .title("test" + i)
-                            .price(BigDecimal.valueOf(1.123 * i + 0.24))
-                            .build())
-                    .build();
+                            .price(BigDecimal.valueOf(1.123 * i + 0.24)));
             list.add(product);
         }
 
