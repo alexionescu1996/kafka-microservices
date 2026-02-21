@@ -29,6 +29,7 @@
     <properties>
         <java.version>23</java.version>
         <mapstruct.version>1.6.3</mapstruct.version>
+        <openapi-generator.version>7.10.0</openapi-generator.version>
     </properties>
     <dependencies>
         <!--        <dependency>-->
@@ -58,6 +59,11 @@
             <version>${mapstruct.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.8.4</version>
+        </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
@@ -74,6 +80,43 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
+                            <generatorName>java</generatorName>
+                            <library>native</library>
+                            <generateApis>false</generateApis>
+                            <generateModels>true</generateModels>
+                            <generateModelTests>false</generateModelTests>
+                            <generateModelDocumentation>false</generateModelDocumentation>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <configOptions>
+                                <sourceFolder>src/main/java</sourceFolder>
+                                <modelPackage>com.example.dto</modelPackage>
+                                <openApiNullable>false</openApiNullable>
+                                <useJakartaEe>true</useJakartaEe>
+                                <serializationLibrary>jackson</serializationLibrary>
+                            </configOptions>
+                            <typeMappings>
+                                <typeMapping>ProductCategory=ProductCategory</typeMapping>
+                                <typeMapping>AvailabilityStatus=AvailabilityStatus</typeMapping>
+                            </typeMappings>
+                            <importMappings>
+                                <importMapping>ProductCategory=com.example.model.ProductCategory</importMapping>
+                                <importMapping>AvailabilityStatus=com.example.model.AvailabilityStatus</importMapping>
+                            </importMappings>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
