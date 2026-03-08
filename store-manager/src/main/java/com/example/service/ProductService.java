@@ -27,6 +27,15 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper mapper;
 
+    public void insertBatch(final List<ProductRequest> productRequests) {
+        final var list = productRequests.stream()
+                .map(mapper::toEntity)
+                .toList();
+
+        final var result = productRepository.saveAll(list);
+        result.forEach((product) -> System.out.println(product.getId()));
+    }
+
     @Transactional(readOnly = true)
     public List<ProductResponse> findAll() {
         final var products = productRepository.findAll();

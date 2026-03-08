@@ -69,7 +69,7 @@ public class StoreController {
     @ApiResponse(responseCode = "201", description = "Product created")
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content)
     @ApiResponse(responseCode = "409", description = "Duplicate product", content = @Content)
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public ResponseEntity<?> addProduct(@RequestBody ProductRequest productRequest,
                                         @RequestHeader("Username") String username) {
 
@@ -78,10 +78,8 @@ public class StoreController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        if (productRequest.getProductDetails() != null) {
-            Utils.validateInput(productRequest.getProductDetails().getPrice(),
-                    productRequest.getProductDetails().getTitle());
-        }
+        Utils.validateInput(productRequest.getProductDetails().getPrice(),
+                productRequest.getProductDetails().getTitle());
 
         logger.info("Adding product :: category {}", productRequest.getCategory());
 
