@@ -91,19 +91,23 @@
                         </goals>
                         <configuration>
                             <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
-                            <generatorName>java</generatorName>
-                            <library>native</library>
-                            <generateApis>false</generateApis>
+                            <generatorName>spring</generatorName>
+                            <generateApis>true</generateApis>
+                            <generateApiTests>false</generateApiTests>
                             <generateModels>true</generateModels>
                             <generateModelTests>false</generateModelTests>
                             <generateModelDocumentation>false</generateModelDocumentation>
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <configOptions>
                                 <sourceFolder>src/main/java</sourceFolder>
+                                <apiPackage>com.example.api</apiPackage>
                                 <modelPackage>com.example.dto</modelPackage>
+                                <interfaceOnly>true</interfaceOnly>
+                                <useTags>true</useTags>
                                 <openApiNullable>false</openApiNullable>
-                                <useJakartaEe>true</useJakartaEe>
-                                <serializationLibrary>jackson</serializationLibrary>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <additionalModelTypeAnnotations>@lombok.Builder
+@lombok.AllArgsConstructor</additionalModelTypeAnnotations>
                             </configOptions>
                             <typeMappings>
                                 <typeMapping>ProductCategory=ProductCategory</typeMapping>

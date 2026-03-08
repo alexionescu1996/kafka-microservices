@@ -43,13 +43,15 @@ public class StoreControllerIT {
 
     @Test
     void test() throws Exception {
-        ProductResponse productResponse = new ProductResponse()
+        ProductResponse productResponse = ProductResponse.builder()
                 .id(UUID.randomUUID())
                 .category(ProductCategory.ELECTRONICS)
                 .availabilityStatus(AvailabilityStatus.IN_STOCK)
-                .productDetails(new ProductDetailsDTO()
+                .productDetails(ProductDetailsDTO.builder()
                         .title("Test")
-                        .price(BigDecimal.valueOf(100.00)));
+                        .price(BigDecimal.valueOf(100.00))
+                        .build())
+                .build();
 
         when(productService.findAll())
                 .thenReturn(List.of(productResponse));
