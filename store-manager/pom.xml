@@ -107,6 +107,8 @@
                                 <openApiNullable>false</openApiNullable>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <useLombok>true</useLombok>
+                                <generateConstructorWithAllArgs>false</generateConstructorWithAllArgs>
+                                <generatedConstructorWithRequiredArgs>false</generatedConstructorWithRequiredArgs>
                                 <additionalModelTypeAnnotations>@lombok.Builder
 @lombok.AllArgsConstructor
 @lombok.NoArgsConstructor</additionalModelTypeAnnotations>
