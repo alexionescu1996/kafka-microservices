@@ -108,10 +108,10 @@
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <useLombok>true</useLombok>
                                 <generateConstructorWithAllArgs>false</generateConstructorWithAllArgs>
-                                <generatedConstructorWithRequiredArgs>false</generatedConstructorWithRequiredArgs>
+                                <generateConstructorWithRequiredArgs>false</generateConstructorWithRequiredArgs>
                                 <additionalModelTypeAnnotations>@lombok.Builder
-@lombok.AllArgsConstructor
-@lombok.NoArgsConstructor</additionalModelTypeAnnotations>
+@lombok.NoArgsConstructor
+@lombok.AllArgsConstructor</additionalModelTypeAnnotations>
                             </configOptions>
                             <typeMappings>
                                 <typeMapping>ProductCategory=ProductCategory</typeMapping>
